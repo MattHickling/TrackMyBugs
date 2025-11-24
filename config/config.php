@@ -21,3 +21,4 @@ try {
 } catch (\mysqli_sql_exception $e) {
     die("Database connection failed: " . $e->getMessage());
 }
+
