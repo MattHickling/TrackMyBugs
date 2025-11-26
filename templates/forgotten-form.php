@@ -98,9 +98,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="col mb-2 mt-4">
                 <p class="text-center" style="font-weight: 600;
-                color: navy;"><a href="index.php?page=register"
+                color: navy;"><a href="?page=register"
                         style="text-decoration: none;">
-                  Create Account</a> OR <a href="index.php?page=login"
+                  Create Account</a> OR <a href="?page=login"
                         style="text-decoration: none;">Login</a></p>
             </div>
         </form>

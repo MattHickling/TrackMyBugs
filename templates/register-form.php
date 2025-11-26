@@ -23,7 +23,7 @@
         </div>
     <?php endif; ?>
 
-    <form method="post" class="form-control mt-5 p-4"
+    <form method="post" class="form-control mt-5 p-4" action="?action=register"
           style="width:380px; box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
                  rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
         <div class="text-center mb-3">
@@ -49,7 +49,7 @@
         <button type="submit" class="btn btn-success w-100 mt-3">Create Account</button>
 
         <p class="text-center mt-3" style="font-weight: 600;">
-            Already have an account? <a href="index.php?page=login">Login</a>
+            Already have an account? <a href="?page=login">Login</a>
         </p>
     </form>
 </div>

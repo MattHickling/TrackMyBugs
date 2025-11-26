@@ -44,8 +44,8 @@
         <button type="submit" class="btn btn-success w-100 mt-3">Login</button>
 
         <p class="text-center mt-3" style="font-weight: 600;">
-            <a href="index.php?page=register">Create Account</a> | 
-            <a href="index.php?page=forgotten">Forgot Password</a>
+            <a href="?page=register">Create Account</a> | 
+            <a href="?page=forgotten">Forgot Password</a>
         </p>
 
     </form>
