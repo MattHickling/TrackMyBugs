@@ -13,6 +13,8 @@ class RegisterUser
 
     public function register($username, $password, $email)
     {
+
+        echo "Registering user: $username, $email"; 
         $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
