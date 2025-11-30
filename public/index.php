@@ -7,15 +7,15 @@ require '../src/Application/routes.php';
 $action = $_GET['action'] ?? null;
 
 if ($action === 'register') {
-    require '../src/Application/Service/RegisterUser.php';
+    require '../src/classes/RegisterUser.php';
     exit;
 }
 
 if ($action === 'login') {
-    require '../src/Application/Service/LoginUser.php';
+    require '../src/classes/LoginUser.php';
     exit;
 }
 if ($action === 'forgotten') {
-    require '../src/Application/Service/ForgottenPassword.php';
+    require '../src/classes/ForgottenPassword.php';
     exit;
 }
