@@ -1,36 +1,28 @@
 <?php
 
-include_once __DIR__ . '/../config/config.php';
-
 class RegisterUser
 {
-    private $db;
+    private $conn;
 
-    public function __construct($dbConnection)
+    public function __construct($conn)
     {
-        $this->db = $dbConnection;
+        $this->conn = $conn;
     }
 
     public function register($username, $password, $email)
     {
-
-        echo "Registering user: $username, $email"; 
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':email', $email);
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
+        $stmt->bind_param("ss", $username, $email);
         $stmt->execute();
-        $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->get_result();
 
-        if ($existingUser) {
-            return false; 
+        if ($result->num_rows > 0) {
+            return false;
         }
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->db->prepare("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)");
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $hashedPassword);
-        $stmt->bindParam(':email', $email);
-
+        $stmt = $this->conn->prepare("INSERT INTO users (username, password_hash, email) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $hashedPassword, $email);
         return $stmt->execute();
     }
 }

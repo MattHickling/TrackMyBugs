@@ -1,21 +1,17 @@
 <?php
 session_start();
 require '../config/config.php';
-require '../src/Application/routes.php';
+require '../vendor/autoload.php';
 
 
 $action = $_GET['action'] ?? null;
 
 if ($action === 'register') {
-    require '../src/classes/RegisterUser.php';
+    require '../templates/register-form.php';
     exit;
-}
-
-if ($action === 'login') {
-    require '../src/classes/LoginUser.php';
+}elseif ($action === 'forgotten') {
+    require '../templates/forgotten-form.php';
     exit;
-}
-if ($action === 'forgotten') {
-    require '../src/classes/ForgottenPassword.php';
-    exit;
+}else{
+     require '../templates/login-form.php';
 }

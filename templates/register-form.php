@@ -23,7 +23,7 @@
         </div>
     <?php endif; ?>
 
-    <form method="post" class="form-control mt-5 p-4" action="?action=register"
+    <form method="post" class="form-control mt-5 p-4" action="register.php"
           style="width:380px; box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
                  rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
         <div class="text-center mb-3">
