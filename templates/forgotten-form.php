@@ -1,32 +1,8 @@
 <?php
 include '../config/config.php';
 
-$message = "";
-$toastClass = "";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm_password'];
-
-    if ($password === $confirmPassword) {
-        // Prepare and execute
-        $stmt = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
-        $stmt->bind_param("ss", $password, $email);
-
-        if ($stmt->execute()) {
-            $message = "Password updated successfully";
-            $toastClass = "bg-success";
-        } else {
-            $message = "Error updating password";
-            $toastClass = "bg-danger";
-        }
-
-        $stmt->close();
-    } else {
-        $message = "Passwords do not match";
-        $toastClass = "bg-warning";
-    }
 
     $conn->close();
 }
@@ -48,23 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container p-5 d-flex flex-column align-items-center">
-        <?php if ($message): ?>
-            <div class="toast align-items-center text-white border-0" role="alert"
-          aria-live="assertive" aria-atomic="true"
-                style="background-color: <?php echo $toastClass === 'bg-success' ? 
-                '#28a745' : ($toastClass === 'bg-danger' ? '#dc3545' :
-                ($toastClass === 'bg-warning' ? '#ffc107' : '')); ?>">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        <?php echo $message; ?>
-                    </div>
-                    <button type="button" class="btn-close 
-                    btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-                </div>
-            </div>
-        <?php endif; ?>
-        <form action="" method="post" class="form-control mt-5 p-4"
+        <form action="../public/forgotten.php" method="post" class="form-control mt-5 p-4"
             style="height:auto; width:380px; box-shadow: rgba(60, 64, 67, 0.3) 
             0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
             <div class="row">
@@ -78,18 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   class="form-control" required>
                 <span id="email-check" class="position-absolute"
                     style="right: 10px; top: 50%; transform: translateY(-50%);"></span>
-            </div>
-            <div class="col mb-3 mt-3">
-                <label for="password">
-                  Password</label>
-                <input type="text" name="password"
-                  id="password" class="form-control" required>
-            </div>
-            <div class="col mb-3 mt-3">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="text" name="confirm_password" 
-                  id="confirm_password"
-                  class="form-control" required>
             </div>
             <div class="col mb-3 mt-3">
                 <button type="submit" class="btn bg-dark" 
