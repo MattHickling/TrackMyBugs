@@ -35,7 +35,7 @@ class ForgottenLogin
 
     private function sendResetEmail($email, $token)
     {
-        $resetUrl = "http://localhost:8888/TrackMyBugs/public/reset-password.php?token=" . urlencode($token);
+        $resetUrl = $_ENV['APP_URL'] . "public/reset-password.php?token=" . urlencode($token);
         $mail = new PHPMailer(true);
 
         try {
