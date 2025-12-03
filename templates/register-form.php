@@ -49,7 +49,7 @@
         <button type="submit" class="btn btn-success w-100 mt-3">Create Account</button>
 
         <p class="text-center mt-3" style="font-weight: 600;">
-            Already have an account? <a href="?page=login">Login</a>
+            Already have an account? <a href="?action=login">Login</a>
         </p>
     </form>
 </div>
