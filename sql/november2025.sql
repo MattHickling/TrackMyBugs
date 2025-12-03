@@ -38,3 +38,9 @@ CREATE TABLE IF NOT EXISTS attachments (
     FOREIGN KEY (`bug_id`) REFERENCES `bugs`(`id`) ON DELETE CASCADE
 );
 
+CREATE TABLE password_resets (
+    `email` VARCHAR(255) NOT NULL,
+    `token` VARCHAR(255) NOT NULL,
+    `expires_at` DATETIME NOT NULL
+);
+
