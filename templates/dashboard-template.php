@@ -16,11 +16,21 @@
 <p>Welcome <?php echo htmlspecialchars($_SESSION['email']); ?></p>
 
 <form action="/TrackMyBugs/public/dashboard.php" method="post">
-    <label for="bug_title">Bug Title:</label>
+    <label for="title">Bug Title:</label>
     <input type="text" id="bug_title" name="bug_title" required>
 
-    <label for="bug_description">Bug Description:</label>
+    <label for="description">Bug Description:</label>
     <textarea id="bug_description" name="bug_description" required></textarea>
+
+   <label for="priority">Priority:</label>
+    <select id="priority" name="priority" required>
+        <option value="">Select</option>
+        <?php foreach ($priorities as $priority): ?>
+            <option value="<?php echo $priority['id']; ?>">
+                <?php echo htmlspecialchars($priority['name']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
 
     <button type="submit">Add Bug</button>
 </form>
