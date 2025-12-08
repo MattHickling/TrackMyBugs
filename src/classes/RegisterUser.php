@@ -21,7 +21,7 @@ class RegisterUser
         }
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->conn->prepare("INSERT INTO users (first_name, surname, password_hash, email) VALUES (?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO users (first_name, surname, password_hash, email) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $first_name, $surname, $hashedPassword, $email);
         return $stmt->execute();
     }
