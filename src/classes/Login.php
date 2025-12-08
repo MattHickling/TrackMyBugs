@@ -23,6 +23,7 @@ class Login
             session_regenerate_id();
 
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['email'] = $user['email'];
 
             return true;

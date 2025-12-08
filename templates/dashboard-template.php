@@ -13,10 +13,9 @@
 <body>
 
 
-
 <div class="container-fluid">
     <h1>Dashboard</h1>
-    <p>Welcome <?php echo htmlspecialchars($_SESSION['email']); ?></p>
+    <p>Hey <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</p>
 <form action="/TrackMyBugs/public/dashboard.php" method="post">
   <div class="form-group mb-2">
     <label for="title">Bug Title</label>

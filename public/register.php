@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($success) {
         $_SESSION['message'] = "User registered successfully!";
+        $_SESSION['first_name'] = $_POST['first_name'];
         header('Location: index.php?page=login');
         exit;
     } else {
