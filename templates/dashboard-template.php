@@ -12,18 +12,26 @@
 </head>
 <body>
 
-<h1>Dashboard</h1>
-<p>Welcome <?php echo htmlspecialchars($_SESSION['email']); ?></p>
 
+
+<div class="container-fluid">
+    <h1>Dashboard</h1>
+    <p>Welcome <?php echo htmlspecialchars($_SESSION['email']); ?></p>
 <form action="/TrackMyBugs/public/dashboard.php" method="post">
-    <label for="title">Bug Title:</label>
-    <input type="text" id="bug_title" name="bug_title" required>
+  <div class="form-group">
+    <label for="title">Bug Title</label>
+    <input type="text" class="form-control" id="bug_title" placeholder="Enter Bug Title...." name="bug_title" required>
+  </div>
 
-    <label for="description">Bug Description:</label>
-    <textarea id="bug_description" name="bug_description" required></textarea>
+  <div class="form-group">
+    <label for="description">Bug Description</label>
+    <textarea class="form-control" id="bug_description" placeholder="What is happening....." name="bug_description" rows="3"></textarea>
+  </div>
+ 
 
-   <label for="priority">Priority:</label>
-    <select id="priority" name="priority" required>
+  <div class="form-group">
+    <label for="exampleFormControlSelect2">Priority</label>
+     <select id="priority" name="priority" required>
         <option value="">Select</option>
         <?php foreach ($priorities as $priority): ?>
             <option value="<?php echo $priority['id']; ?>">
@@ -31,9 +39,13 @@
             </option>
         <?php endforeach; ?>
     </select>
+  </div>
 
-    <button type="submit">Add Bug</button>
+
+  <button type="submit" class="btn btn-primary">Add Bug</button>
 </form>
+        </div>
+
 
 <script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
 <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
