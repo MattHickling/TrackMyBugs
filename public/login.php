@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: dashboard.php");
         exit;
     } else {
-        $message = "Invalid username or password";
+        $message = "Invalid password";
         $toastClass = "bg-danger";
     }
 }

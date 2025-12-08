@@ -9,10 +9,10 @@ class RegisterUser
         $this->conn = $conn;
     }
 
-    public function register($username, $password, $email)
+    public function register($first_name, $surname, $password, $email)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
-        $stmt->bind_param("ss", $username, $email);
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -21,8 +21,8 @@ class RegisterUser
         }
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->conn->prepare("INSERT INTO users (username, password_hash, email) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $hashedPassword, $email);
+        $stmt = $this->conn->prepare("INSERT INTO users (first_name, surname, password_hash, email) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssss", $first_name, $surname, $hashedPassword, $email);
         return $stmt->execute();
     }
 }

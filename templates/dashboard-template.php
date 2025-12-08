@@ -18,18 +18,18 @@
     <h1>Dashboard</h1>
     <p>Welcome <?php echo htmlspecialchars($_SESSION['email']); ?></p>
 <form action="/TrackMyBugs/public/dashboard.php" method="post">
-  <div class="form-group">
+  <div class="form-group mb-2">
     <label for="title">Bug Title</label>
     <input type="text" class="form-control" id="bug_title" placeholder="Enter Bug Title...." name="bug_title" required>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <label for="description">Bug Description</label>
     <textarea class="form-control" id="bug_description" placeholder="What is happening....." name="bug_description" rows="3"></textarea>
   </div>
  
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <label for="exampleFormControlSelect2">Priority</label>
      <select id="priority" name="priority" required>
         <option value="">Select</option>

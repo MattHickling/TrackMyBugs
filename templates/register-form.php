@@ -32,8 +32,13 @@
         </div>
 
         <div class="mb-2">
-            <label for="username"></i> Username</label>
-            <input type="text" name="username" id="username" class="form-control" required>
+            <label for="first_name"></i> First Name</label>
+            <input type="text" name="first_name" id="first_name" class="form-control" required>
+        </div>
+
+        <div class="mb-2">
+            <label for="surname"></i> First Name</label>
+            <input type="text" name="surname" id="surname" class="form-control" required>
         </div>
 
         <div class="mb-2">
