@@ -19,4 +19,21 @@ class Dashboard
         $result = $stmt->get_result();
 
     }
+
+    public function getAllBugs()
+    {
+        $sql = "SELECT b.id, b.title, b.description,
+                    p.name AS priority_name,
+                    u.first_name,
+                    s.name AS status_name
+                FROM bugs b
+                JOIN priorities p ON b.priority = p.id
+                JOIN users u ON b.user_id = u.id
+                JOIN statuses s ON b.status = s.id";
+
+        $result = $this->conn->query($sql);
+        var_dump($result);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
