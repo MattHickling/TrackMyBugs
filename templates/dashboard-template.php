@@ -77,7 +77,8 @@
 
 <script>
     jQuery(document).ready(function() {
-        jQuery('#live_bugs').DataTable({
+
+        var table = jQuery('#live_bugs').DataTable({
             ajax: '/TrackMyBugs/public/api/live_bugs.php',
             columns: [
                 { data: 'id' },
@@ -88,7 +89,14 @@
                 { data: 'status_name' }
             ]
         });
+
+        jQuery('#live_bugs tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            if (!data || !data.id) return;
+            window.location.href = '/TrackMyBugs/public/bug.php?id=' + data.id;
+        });
     });
+
 
     
 </script>
