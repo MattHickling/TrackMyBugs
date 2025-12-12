@@ -11,38 +11,6 @@
     <title>Dashboard</title>
 </head>
 <body>
-
-
-<div class="container-fluid">
-    <p>Hey <?php echo htmlspecialchars($_SESSION['first_name']); ?>!</p>
-<form action="/TrackMyBugs/public/dashboard.php" method="post">
-  <div class="form-group mb-2">
-    <label for="title">Bug Title</label>
-    <input type="text" class="form-control" id="bug_title" placeholder="Enter Bug Title...." name="bug_title" required>
-  </div>
-
-  <div class="form-group mb-2">
-    <label for="description">Bug Description</label>
-    <textarea class="form-control" id="bug_description" placeholder="What is happening....." name="bug_description" rows="3"></textarea>
-  </div>
- 
-
-  <div class="form-group mb-2">
-    <label for="exampleFormControlSelect2">Priority</label>
-     <select id="priority" name="priority" required>
-        <option value="">Select</option>
-        <?php foreach ($priorities as $priority): ?>
-            <option value="<?php echo $priority['id']; ?>">
-                <?php echo htmlspecialchars($priority['name']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-  </div>
-
-
-  <button type="submit" class="btn btn-primary">Add Bug</button>
-</form>
-</div>
 <div class="container-fluid mt-1 text-center">
 <h3>Live Bugs</h3>
 <table id="live_bugs">
@@ -53,6 +21,8 @@
         <th>Priority</th>
         <th>Reported By</th>
         <th>Status</th>
+        <th>Bug URL</th>
+        <th>Created</th>
     </thead>
     <tbody>
         <?php if (!empty($bugs)){?>
@@ -64,6 +34,8 @@
                     <td><?php echo htmlspecialchars($bug['priority']); ?></td>
                     <td><?php echo htmlspecialchars($bug['first_name']); ?></td>
                     <td><?php echo htmlspecialchars($bug['status']); ?></td>
+                    <td><?php echo htmlspecialchars($bug['bug_url']); ?></td>
+                    <td><?php echo htmlspecialchars($bug['created_at']); ?></td>
                 </tr>
             <?php endforeach; 
             }?>
@@ -86,7 +58,9 @@
                 { data: 'description' },
                 { data: 'priority_name' },
                 { data: 'first_name' },
-                { data: 'status_name' }
+                { data: 'status_name' },
+                { data: 'bug_url' },
+                { data: 'created_at' }
             ]
         });
 

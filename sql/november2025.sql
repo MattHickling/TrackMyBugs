@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS bugs (
     `title` VARCHAR(255) NOT NULL,
     description TEXT,
     status ENUM('open', 'in_progress', 'closed') DEFAULT 'open',
+    `bug_url` TEXT NULL,
     priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
