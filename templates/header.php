@@ -1,3 +1,18 @@
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once '../config/config.php';
+
+if (!isset($priorities)) {
+    $stmt = $conn->prepare("SELECT id, name FROM priorities ORDER BY id ASC");
+    $stmt->execute();
+    $priorities = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +22,7 @@
     <link href="/TrackMyBugs/public/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/TrackMyBugs/public/assets/css/font-awesome.css" rel="stylesheet">
     <link href="/TrackMyBugs/public/assets/css/login.css" rel="stylesheet">
+    <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/TrackMyBugs/public/assets/datatables/css/datatables.min.css">
 </head>
 <body>
@@ -23,7 +39,6 @@
                     <a class="nav-link" href="/TrackMyBugs/public/logout.php">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <!-- Add Bug button triggers modal -->
                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addBugModal">
                         Add Bug
                     </button>
@@ -33,7 +48,6 @@
     </div>
 </nav>
 
-<!-- Modal form for adding bug (available on all pages) -->
 <div class="modal fade" id="addBugModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
@@ -66,3 +80,5 @@
     </div>
   </div>
 </div>
+<script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
+<script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
