@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../config/config.php';
-include '../src/classes/Login.php';
+include '../src/Classes/Login.php';
 
 $login = new Login($conn);
 

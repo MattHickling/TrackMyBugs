@@ -1,6 +1,6 @@
 <?php
 require_once '../../config/config.php';
-require_once '../../src/classes/Dashboard.php';
+require_once '../../src/Classes/Dashboard.php';
 
 header('Content-Type: application/json');
 

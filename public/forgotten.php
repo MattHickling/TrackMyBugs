@@ -2,7 +2,7 @@
 session_start();
 require '../config/config.php';
 require '../vendor/autoload.php';
-require '../src/classes/ForgottenLogin.php';
+require '../src/Classes/ForgottenLogin.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $forgotten = new ForgottenLogin($conn); 

@@ -2,7 +2,7 @@
 session_start();
 require '../config/config.php';
 require '../vendor/autoload.php';
-require '../src/classes/RegisterUser.php';
+require '../src/Classes/RegisterUser.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $register = new RegisterUser($conn); 

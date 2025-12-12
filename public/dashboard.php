@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 include '../templates/header.php';
 require '../config/config.php';
 require '../vendor/autoload.php';
-require '../src/classes/Dashboard.php';
+require '../src/Classes/Dashboard.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dashboard = new Dashboard($conn);
