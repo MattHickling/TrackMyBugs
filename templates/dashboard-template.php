@@ -18,6 +18,7 @@
         <th>Bug ID</th>
         <th>Title</th>
         <th>Description</th>
+        <th>Project</th>
         <th>Priority</th>
         <th>Reported By</th>
         <th>Status</th>
@@ -31,6 +32,7 @@
                     <td><?php echo $bug['id']; ?></td>
                     <td><?php echo htmlspecialchars($bug['title']); ?></td>
                     <td><?php echo htmlspecialchars($bug['description']); ?></td>
+                    <td><?php echo htmlspecialchars($bug['project_name']); ?></td>
                     <td><?php echo htmlspecialchars($bug['priority']); ?></td>
                     <td><?php echo htmlspecialchars($bug['first_name']); ?></td>
                     <td><?php echo htmlspecialchars($bug['status']); ?></td>
@@ -52,16 +54,17 @@
 
         var table = jQuery('#live_bugs').DataTable({
             ajax: '/TrackMyBugs/public/api/live_bugs.php',
-            columns: [
-                { data: 'id' },
-                { data: 'title' },
-                { data: 'description' },
-                { data: 'priority_name' },
-                { data: 'first_name' },
-                { data: 'status_name' },
-                { data: 'bug_url' },
-                { data: 'created_at' }
-            ]
+                columns: [
+                    { data: 'id' },
+                    { data: 'title' },
+                    { data: 'description' },
+                    { data: 'project_name' },
+                    { data: 'priority_name' },
+                    { data: 'first_name' },
+                    { data: 'status_name' },
+                    { data: 'bug_url' },
+                    { data: 'created_at' }
+                ]
         });
 
         jQuery('#live_bugs tbody').on('click', 'tr', function () {

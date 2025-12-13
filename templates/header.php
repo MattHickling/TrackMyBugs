@@ -11,6 +11,11 @@ if (!isset($priorities)) {
     $stmt->execute();
     $priorities = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
+
+
+$stmt = $conn->prepare("SELECT id, name FROM projects ORDER BY id ASC");
+$stmt->execute();
+$projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +48,11 @@ if (!isset($priorities)) {
                         Add Bug
                     </button>
                 </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProjectModal">
+                        Add Project
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
@@ -51,7 +61,16 @@ if (!isset($priorities)) {
 <div class="modal fade" id="addBugModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
-      <form action="/TrackMyBugs/public/dashboard.php" method="post">
+      <form action="/TrackMyBugs/public/bug.php" method="post">
+        <div class="mb-2">
+         <label for="project_id" class="form-label">Project</label>
+          <select class="form-select form-select-sm" id="project_id" name="project_id" required>
+            <option value="">Select</option>
+            <?php foreach ($projects as $project): ?>
+              <option value="<?php echo $project['id']; ?>"><?php echo htmlspecialchars($project['name']); ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
         <div class="mb-2">
           <label for="bug_title" class="form-label">Bug Title</label>
           <input type="text" class="form-control form-control-sm" id="bug_title" name="bug_title" required>
@@ -72,6 +91,39 @@ if (!isset($priorities)) {
               <option value="<?php echo $priority['id']; ?>"><?php echo htmlspecialchars($priority['name']); ?></option>
             <?php endforeach; ?>
           </select>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-success btn-sm">Add Bug</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addProjectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <form action="/TrackMyBugs/public/project.php" method="post">
+        
+        <div class="mb-2">
+          <label for="name" class="form-label">Project Name</label>
+          <input type="text" class="form-control form-control-sm" id="name" name="name" required>
+        </div>
+        <div class="mb-2">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control form-control-sm" id="description" name="description" rows="2" required></textarea>
+        </div>
+        <div class="mb-2">
+        <label for="language" class="form-label">Language</label>
+        <select class="form-select form-select-sm" id="language" name="language" required>
+          <option value="">Select</option>
+          <?php foreach ($languages as $language): ?>
+            <option value="<?php echo $language['id']; ?>">
+              <?php echo htmlspecialchars($language['name']); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
         </div>
         <div class="text-end">
           <button type="submit" class="btn btn-success btn-sm">Add Bug</button>

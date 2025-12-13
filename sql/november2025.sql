@@ -9,28 +9,56 @@ CREATE TABLE IF NOT EXISTS users (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS bugs (
+CREATE TABLE projects (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(255) NOT NULL,
+    `description` TEXT NULL,
+    `language` TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE bugs (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `project_id` INT NOT NULL,
     `title` VARCHAR(255) NOT NULL,
-    description TEXT,
-    status ENUM('open', 'in_progress', 'closed') DEFAULT 'open',
+    `description` TEXT,
+    `status` ENUM('open', 'in_progress', 'closed') DEFAULT 'open',
+    `priority` ENUM('low', 'medium', 'high', 'critical') DEFAULT 'medium',
     `bug_url` TEXT NULL,
-    priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
+    `user_id` INT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `user_id` INT,
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
-);      
 
-CREATE TABLE IF NOT EXISTS comments (
+    CONSTRAINT fk_bugs_project
+        FOREIGN KEY (project_id)
+        REFERENCES projects(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_bugs_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE SET NULL
+);
+
+
+CREATE TABLE comments (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `bug_id` INT,
-    `user_id` INT,
+    `bug_id` INT NOT NULL,
+    `user_id` INT NULL,
     `comment` TEXT NOT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`bug_id`) REFERENCES `bugs`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
+
+    CONSTRAINT fk_comments_bug
+        FOREIGN KEY (`bug_id`)
+        REFERENCES bugs(`id`)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_comments_user
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE SET NULL
 );
+
 
 CREATE TABLE IF NOT EXISTS attachments (
     `id` INT AUTO_INCREMENT PRIMARY KEY,

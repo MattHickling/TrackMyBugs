@@ -28,3 +28,16 @@ $priorities = [
     ['id' => 3, 'name' => 'High'],
     ['id' => 4, 'name' => 'Critical']
 ];
+
+$languages = [
+    ['id' => 1, 'name' => 'PHP'],
+    ['id' => 2, 'name' => 'JavaScript'],
+    ['id' => 3, 'name' => 'Python'],
+    ['id' => 4, 'name' => 'Java'],
+    ['id' => 5, 'name' => 'C#'],
+    ['id' => 6, 'name' => 'Ruby'],
+    ['id' => 7, 'name' => 'C++'],
+    ['id' => 8, 'name' => 'Go'],
+    ['id' => 9, 'name' => 'Swift'],
+    ['id' => 10, 'name' => 'Kotlin']
+];

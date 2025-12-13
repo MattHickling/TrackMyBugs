@@ -1,11 +1,13 @@
 <?php
+
 require_once '../../config/config.php';
-require_once '../../src/Classes/Dashboard.php';
+require_once '../../src/Classes/Bug.php';
 
 header('Content-Type: application/json');
 
-$dashboard = new Dashboard($conn);
-$bugs = $dashboard->getAllBugs();
+$bugRepo = new Bug($conn);
+$bugs = $bugRepo->getAllBugs();
 
-echo json_encode(['data' => $bugs]);
-exit;
+echo json_encode([
+    'data' => $bugs
+]);
