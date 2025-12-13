@@ -1,4 +1,4 @@
-<?php if ($comment_details): ?>
+<?php if (isset($comment_details)): ?>
     <h2>Comment #<?php echo htmlspecialchars($comment_details['id']); ?></h2>
     <p><strong>Bug ID:</strong> <?php echo htmlspecialchars($comment_details['bug_id']); ?></p>
     <p><strong>Comment:</strong> <?php echo htmlspecialchars($comment_details['comment']); ?></p>
