@@ -45,3 +45,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
 include '../templates/header.php';
 include '../templates/bug-template.php';
+include '../templates/comment-template.php';

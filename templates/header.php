@@ -5,7 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once '../config/config.php';
-
 if (!isset($priorities)) {
     $stmt = $conn->prepare("SELECT id, name FROM priorities ORDER BY id ASC");
     $stmt->execute();
@@ -38,20 +37,24 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item me-2">
-                    <span class="nav-link">Hello, <?php echo htmlspecialchars($_SESSION['first_name']); ?></span>
-                </li>
-                <li class="nav-item me-2">
-                    <a class="nav-link" href="/TrackMyBugs/public/logout.php">Logout</a>
-                </li>
-                <li class="nav-item">
                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addBugModal">
                         Add Bug
                     </button>
                 </li>
-                <li class="nav-item">
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProjectModal">
+                <li class="nav-item ml-3">
+                    <button type="button" class="btn btn-primary ml-3 btn-sm" data-bs-toggle="modal" data-bs-target="#addProjectModal">
                         Add Project
                     </button>
+                </li>
+                <?php if (isset($_GET['id'])):?>
+                  <li class="nav-item ms-2">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addCommentModal">
+                        Add Comment
+                    </button>
+                  </li>
+                <?php endif; ?>
+                <li class="nav-item me-2">
+                    <a class="nav-link" href="/TrackMyBugs/public/logout.php">Logout</a>
                 </li>
             </ul>
         </div>
@@ -132,5 +135,29 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </div>
   </div>
 </div>
+
+
+<?php if (isset($_GET['id'])): ?>
+<div class="modal fade" id="addCommentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <form action="/TrackMyBugs/public/comment.php" method="post">
+        <div class="mb-3">
+
+          <input type="hidden" id="bug_id" name="bug_id" value="<?php echo (int)$_GET['id']; ?>">
+          <input type="hidden" id="user_id" name="user_id" value="<?php echo (int)$_SESSION['user_id']; ?>">
+          
+          <label for="comment" class="form-label">Comment</label>
+          <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-success btn-sm">Add Comment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+
 <script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
 <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
