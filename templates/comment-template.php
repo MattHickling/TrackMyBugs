@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/TrackMyBugs/public/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/TrackMyBugs/public/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/TrackMyBugs/public/assets/css/login.css" rel="stylesheet">
-    <link rel="stylesheet" href="/TrackMyBugs/public/assets/datatables/css/datatables.min.css">
+<?php if ($comment_details): ?>
+    <h2>Comment #<?php echo htmlspecialchars($comment_details['id']); ?></h2>
+    <p><strong>Bug ID:</strong> <?php echo htmlspecialchars($comment_details['bug_id']); ?></p>
+    <p><strong>Comment:</strong> <?php echo htmlspecialchars($comment_details['comment']); ?></p>
+    <p><strong>Added by:</strong> <?php echo htmlspecialchars($comment_details['added_by']); ?></p>
+    <p><strong>Created at:</strong> <?php echo htmlspecialchars($comment_details['created_at']); ?></p>
+<?php else: ?>
+    <p>Comment not found.</p>
+<?php endif; ?>
 
-    <title>Comments</title>
-</head>
-<body>
-<div class="container-fluid mt-1 text-center">
-<h3>Comments</h3>
+
 <table id="bug_comments">
     <thead>
         <th>ID</th>
@@ -54,7 +50,7 @@
                 ]
         });
 
-        jQuery('#bug_comments tbody').on('click', 'tr', function () {
+        $('#bug_comments tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
             if (!data || !data.id) return;
             window.location.href = '/TrackMyBugs/public/comment.php?id=' + data.id;
@@ -62,5 +58,4 @@
     });
 
 </script>
-</body>
-</html>
+

@@ -36,4 +36,18 @@ class Comment
 
         return $this->conn->query($sql)->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getCommentById(int $id): ?array
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT c.id, c.bug_id, c.comment, c.created_at, u.first_name AS added_by
+            FROM comments c
+            LEFT JOIN users u ON c.user_id = u.id
+            WHERE c.id = ?"
+        );
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc() ?: null;
+    }
+
 }
