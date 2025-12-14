@@ -1,13 +1,17 @@
-<?php if (isset($comment_details)): ?>
-    <h2>Comment #<?php echo htmlspecialchars($comment_details['id']); ?></h2>
-    <p><strong>Bug ID:</strong> <?php echo htmlspecialchars($comment_details['bug_id']); ?></p>
-    <p><strong>Comment:</strong> <?php echo htmlspecialchars($comment_details['comment']); ?></p>
-    <p><strong>Added by:</strong> <?php echo htmlspecialchars($comment_details['added_by']); ?></p>
-    <p><strong>Created at:</strong> <?php echo htmlspecialchars($comment_details['created_at']); ?></p>
-<?php else: ?>
-    <p>Comment not found.</p>
-<?php endif; ?>
+<?php 
+use Carbon\Carbon;
 
+if (isset($comment_details)): 
+    $createdAt = Carbon::parse($comment_details['created_at']);
+    $comment_details['created_at'] = $createdAt->format('M d Y');
+    ?>
+    <h2 class="ms-2">Comment <strong><?php echo htmlspecialchars($comment_details['comment']); ?></h2>
+    <p class="ms-2"><strong>Bug ID:</strong> <?php echo htmlspecialchars($comment_details['bug_id']); ?></p>
+    <p class="ms-2"><strong>Added by:</strong> <?php echo htmlspecialchars($comment_details['added_by']); ?></p>
+    <p class="ms-2"><strong>Created at:</strong> <?php echo htmlspecialchars($comment_details['created_at']); ?></p>
+<?php else: ?>
+    <p class="ms-2">Comment not found.</p>
+<?php endif; ?>
 
 <table id="bug_comments">
     <thead>
@@ -17,8 +21,9 @@
         <th>Added By</th>
     </thead>
     <tbody>
-        <?php if (!empty($comments)){?>
-            <?php foreach ($comments as $comment): ?>
+        <?php if (!empty($comments)){
+                foreach ($comments as $comment): 
+                ?>
                 <tr>
                     <td><?php echo htmlspecialchars($comment['id']); ?></td>
                     <td><?php echo htmlspecialchars($comment['bug_id']); ?></td>
