@@ -81,6 +81,7 @@ CREATE TABLE user_notification_channels (
     `sms_notifications` BOOLEAN DEFAULT FALSE,
     `push_notifications` BOOLEAN DEFAULT FALSE,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_notification (user_id)
 );
 

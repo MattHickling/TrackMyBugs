@@ -32,7 +32,7 @@ class User
 
     public function deleteUser(int $id): bool
     {
-        var_dump("Deleting user with ID: " . $id); // Debug line
+        var_dump("Deleting user with ID: " . $id);
         $stmt = $this->conn->prepare(
             "DELETE FROM users WHERE id = ?"
         );
@@ -44,13 +44,14 @@ class User
     {
         $stmt = $this->conn->prepare(
             "SELECT u.*,
-                    c.email_notifications,
-                    c.sms_notifications,
-                    c.push_notifications
-             FROM users u
-             LEFT JOIN user_notification_channels c ON c.user_id = u.id
-             WHERE u.id = ?"
+                COALESCE(c.email_notifications, 0) AS email_notifications,
+                COALESCE(c.sms_notifications, 0) AS sms_notifications,
+                COALESCE(c.push_notifications, 0) AS push_notifications
+            FROM users u
+            LEFT JOIN user_notification_channels c ON c.user_id = u.id
+            WHERE u.id = ?"
         );
+        
 
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -66,16 +67,31 @@ class User
         $push  = isset($data['push_notifications']) ? 1 : 0;
 
         $stmt = $this->conn->prepare(
-            "INSERT INTO user_notification_channels
-                (user_id, email_notifications, sms_notifications, push_notifications, created_at)
-             VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-             ON DUPLICATE KEY UPDATE
-                email_notifications = VALUES(email_notifications),
-                sms_notifications = VALUES(sms_notifications),
-                push_notifications = VALUES(push_notifications)"
+            "SELECT id FROM user_notification_channels WHERE user_id = ?"
         );
-
-        $stmt->bind_param("iiii", $userId, $email, $sms, $push);
-        return $stmt->execute();
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $stmt = $this->conn->prepare(
+                "UPDATE user_notification_channels
+                SET email_notifications = ?, sms_notifications = ?, push_notifications = ?
+                WHERE user_id = ?"
+            );
+            $stmt->bind_param("iiii", $email, $sms, $push, $userId);
+            return $stmt->execute();
+        } else {
+            $stmt = $this->conn->prepare(
+                "INSERT INTO user_notification_channels
+                (user_id, email_notifications, sms_notifications, push_notifications, created_at)
+                VALUES (?, ?, ?, ?, NOW())"
+            );
+            $stmt->bind_param("iiii", $userId, $email, $sms, $push);
+            return $stmt->execute();
+        }
     }
+
+
+
 }
