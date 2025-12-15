@@ -14,7 +14,7 @@ CREATE TABLE projects (
     `name` VARCHAR(255) NOT NULL,
     `description` TEXT NULL,
     `language` TEXT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE bugs (
@@ -72,5 +72,15 @@ CREATE TABLE password_resets (
     `email` VARCHAR(255) NOT NULL,
     `token` VARCHAR(255) NOT NULL,
     `expires_at` DATETIME NOT NULL
+);
+
+CREATE TABLE user_notification_channels (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `email_notifications` BOOLEAN DEFAULT TRUE,
+    `sms_notifications` BOOLEAN DEFAULT FALSE,
+    `push_notifications` BOOLEAN DEFAULT FALSE,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
 

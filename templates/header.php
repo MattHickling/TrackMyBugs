@@ -54,7 +54,14 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                   </li>
                 <?php endif; ?>
                 <li class="nav-item me-2">
-                    <a class="nav-link" href="/TrackMyBugs/public/logout.php">Logout</a>
+                    <a class="nav-link" href="/TrackMyBugs/public/profile.php">
+                        Profile
+                    </a>
+                </li>
+                <li class="nav-item me-2">
+                    <a class="nav-link" href="/TrackMyBugs/public/logout.php">
+                        Logout
+                    </a>
                 </li>
             </ul>
         </div>
