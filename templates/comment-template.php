@@ -6,7 +6,6 @@ if (isset($comment_details)):
     $comment_details['created_at'] = $createdAt->format('M d Y');
     ?>
     <h2 class="ms-2">Comment <strong><?php echo htmlspecialchars($comment_details['comment'] ?? ''); ?></h2>
-    <p class="ms-2"><strong>Bug ID:</strong> <?php echo htmlspecialchars($comment_details['bug_id'] ?? ''); ?></p>
     <p class="ms-2"><strong>Added by:</strong> <?php echo htmlspecialchars($comment_details['added_by'] ?? ''); ?></p>
     <p class="ms-2"><strong>Created at:</strong> <?php echo htmlspecialchars($comment_details['created_at'] ?? ''); ?></p>
 <?php else: ?>
@@ -15,7 +14,6 @@ if (isset($comment_details)):
 
 <table id="bug_comments">
     <thead>
-        <th>ID</th>
         <th>Date Added</th>
         <th>Comment</th>
         <th>Added By</th>
@@ -25,10 +23,8 @@ if (isset($comment_details)):
                 foreach ($comments as $comment): 
                 ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($comment['id']); ?></td>
-                    <td><?php echo htmlspecialchars($comment['bug_id']); ?></td>
-                    <td><?php echo htmlspecialchars($comment['comment']); ?></td>
                     <td><?php echo htmlspecialchars($comment['created_at']); ?></td>
+                    <td><?php echo htmlspecialchars($comment['comment']); ?></td>
                     <td><?php echo htmlspecialchars($comment['added_by']); ?></td>
                 </tr>
             <?php endforeach; 
@@ -47,10 +43,8 @@ if (isset($comment_details)):
         var table = jQuery('#bug_comments').DataTable({
             ajax: '/TrackMyBugs/public/api/bug_comments.php',
                 columns: [
-                    { data: 'id' },
-                    { data: 'bug_id' },
-                    { data: 'comment' },
                     { data: 'created_at' },
+                    { data: 'comment' },
                     { data: 'added_by' }
                 ]
         });
