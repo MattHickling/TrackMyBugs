@@ -44,6 +44,15 @@ class Bug
         $stmt->execute();
         $userProfile = $stmt->get_result()->fetch_assoc();
 
+        $stmt = $this->conn->prepare(
+        "SELECT p.name
+            FROM projects p
+            WHERE p.id = ?"
+        );
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $project = $stmt->get_result()->fetch_assoc();
+
         if ($userProfile && $userProfile['email_notifications']) {
             $notification = NotificationService::forUser($userProfile);
             $notification->sendNotification(
