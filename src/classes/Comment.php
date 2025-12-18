@@ -9,16 +9,19 @@ class Comment
         $this->conn = $conn;
     }
 
-    public function createComment(
-        int $bug_id,
-        int $user_id,
-        string $comment
-    ): bool {
+    public function createComment(int $bug_id, int $user_id, string $comment): bool 
+    {
         $stmt = $this->conn->prepare(
             "INSERT INTO comments (bug_id, user_id, comment) VALUES (?, ?, ?)"
         );
         $stmt->bind_param("iis", $bug_id, $user_id, $comment);
         return $stmt->execute();
+
+        $stmt = $this->conn->prepare(
+            "SELECT FROM users (bug_id, user_id, comment) VALUES (?, ?, ?)"
+        );
+        $stmt->bind_param("iis", $bug_id, $user_id, $comment);
+    
     }
 
     public function getComments(): array

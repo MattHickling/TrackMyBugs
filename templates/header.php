@@ -11,6 +11,11 @@ if (!isset($priorities)) {
     $priorities = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
 
+if (!isset($users)) {
+    $stmt = $conn->prepare("SELECT id, first_name, surname FROM users ORDER BY id ASC");
+    $stmt->execute();
+    $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
 
 $stmt = $conn->prepare("SELECT id, name FROM projects ORDER BY id ASC");
 $stmt->execute();
@@ -92,6 +97,15 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
          <div class="mb-2">
           <label for="bug_url" class="form-label">Bug URL</label>
           <input type="text" class="form-control form-control-sm" id="bug_url" name="bug_url" required>
+        </div>
+        <div class="mb-2">
+          <label for="assigned_to" class="form-label">Assigned To</label>
+          <select class="form-select form-select-sm" id="assigned_to" name="assigned_to" required>
+            <option value="">Select</option>
+            <?php foreach ($users as $user): ?>
+              <option value="<?php echo $user['id']; ?>"><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['surname']); ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
         <div class="mb-2">
           <label for="priority" class="form-label">Priority</label>

@@ -19,6 +19,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Project</th>
+        <th>Assigned To</th>
         <th>Priority</th>
         <th>Reported By</th>
         <th>Status</th>
@@ -33,8 +34,9 @@
                     <td><?php echo htmlspecialchars($bug['title']); ?></td>
                     <td><?php echo htmlspecialchars($bug['description']); ?></td>
                     <td><?php echo htmlspecialchars($bug['project_name']); ?></td>
+                    <td><?php echo htmlspecialchars($bug['assigned_to']); ?></td>
                     <td><?php echo htmlspecialchars($bug['priority']); ?></td>
-                    <td><?php echo htmlspecialchars($bug['first_name']); ?></td>
+                    <td><?php echo htmlspecialchars($bug['reported_by']); ?></td>
                     <td><?php echo htmlspecialchars($bug['status']); ?></td>
                     <td><?php echo htmlspecialchars($bug['bug_url']); ?></td>
                     <td><?php echo htmlspecialchars($bug['created_at']); ?></td>
@@ -59,8 +61,9 @@
                     { data: 'title' },
                     { data: 'description' },
                     { data: 'project_name' },
+                    { data: 'assigned_to' },
                     { data: 'priority_name' },
-                    { data: 'first_name' },
+                    { data: 'reported_by' },
                     { data: 'status_name' },
                     { data: 'bug_url' },
                     { data: 'created_at' }

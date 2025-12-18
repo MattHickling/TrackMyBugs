@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $priority  = $_POST['priority'] ?? null;
     $title     = $_POST['bug_title'] ?? null;
     $description = $_POST['bug_description'] ?? null;
+    $assigned_to = $_POST['assigned_to'] ?? null;
     $bugUrl    = $_POST['bug_url'] ?? null;
 
     if (!$projectId || !$priority || !$title || !$description) {
@@ -29,7 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $description,
         (int)$priority,
         $bugUrl,
-        $_SESSION['user_id']
+        $_SESSION['user_id'],
+        $assigned_to
     );
 
     header('Location: dashboard.php');
