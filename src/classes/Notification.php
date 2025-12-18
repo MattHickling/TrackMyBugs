@@ -2,29 +2,27 @@
 
 namespace Src\Classes;
 
-use Src\Interfaces\NotificationInterface;
-
-class Notification implements NotificationInterface
+class Notification
 {
+    private array $channels;
+
     public function __construct(array $channels)
     {
         $this->channels = $channels;
     }
 
-    public function send(string $message, array $recipients): bool
+    public function sendNotification(string $message, array $recipients): bool
     {
         $success = true;
 
         foreach ($this->channels as $channel) {
-            if (!$channel->send($message, $recipients)) {
-                $success = false;
+            foreach ($recipients as $recipient) {
+                if (!$channel->send($recipient, "Notification", $message)) {
+                    $success = false;
+                }
             }
         }
-        return true;
+
+        return $success;
     }
-    
-    // public function getUserNotificationChannels(int $userId): array
-    // {
-    //     return ['email', 'sms'];
-    // }
 }

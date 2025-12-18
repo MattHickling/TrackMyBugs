@@ -4,5 +4,5 @@ namespace Src\Interfaces;
 
 interface NotificationInterface
 {
-    public function send(string $message, array $recipients): bool;
+    public function send(string $recipient, string $subject, string $body): bool;
 }

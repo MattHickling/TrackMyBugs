@@ -78,7 +78,7 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <div class="modal-content p-3">
       <form action="/TrackMyBugs/public/bug.php" method="post">
         <div class="mb-2">
-         <label for="project_id" class="form-label">Project</label>
+         <label for="project_id" class="form-label">Which Project Does This Bug Belong To?</label>
           <select class="form-select form-select-sm" id="project_id" name="project_id" required>
             <option value="">Select</option>
             <?php foreach ($projects as $project): ?>

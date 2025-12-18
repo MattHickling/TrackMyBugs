@@ -8,21 +8,24 @@ if (!isset($_SESSION['user_id'])) {
 
 require '../config/config.php';
 require '../vendor/autoload.php';
-require '../src/Classes/Bug.php';
+
+use Src\Classes\Bug;
+use Src\Services\NotificationService;
 
 $bugRepo = new Bug($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $projectId = $_POST['project_id'] ?? null;
-    $priority  = $_POST['priority'] ?? null;
-    $title     = $_POST['bug_title'] ?? null;
+    $projectId   = $_POST['project_id'] ?? null;
+    $priority    = $_POST['priority'] ?? null;
+    $title       = $_POST['bug_title'] ?? null;
     $description = $_POST['bug_description'] ?? null;
     $assigned_to = $_POST['assigned_to'] ?? null;
-    $bugUrl    = $_POST['bug_url'] ?? null;
+    $bugUrl      = $_POST['bug_url'] ?? null;
 
     if (!$projectId || !$priority || !$title || !$description) {
         die("Project, priority, title, and description must be provided.");
     }
+
 
     $bugRepo->create(
         (int)$projectId,
@@ -31,12 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         (int)$priority,
         $bugUrl,
         $_SESSION['user_id'],
-        $assigned_to
+        (int)$assigned_to
     );
 
     header('Location: dashboard.php');
     exit;
-
 }
 
 $bug_details = null;
