@@ -6,16 +6,25 @@ use Src\Interfaces\NotificationInterface;
 
 class Notification implements NotificationInterface
 {
-    public function sendNotification(string $message, array $recipients): bool
+    public function __construct(array $channels)
     {
-        foreach ($recipients as $recipient) {
-            echo "Sending notification to {$recipient}: {$message}\n";
+        $this->channels = $channels;
+    }
+
+    public function send(string $message, array $recipients): bool
+    {
+        $success = true;
+
+        foreach ($this->channels as $channel) {
+            if (!$channel->send($message, $recipients)) {
+                $success = false;
+            }
         }
         return true;
     }
     
-    public function getUserNotificationChannels(int $userId): array
-    {
-        return ['email', 'sms'];
-    }
+    // public function getUserNotificationChannels(int $userId): array
+    // {
+    //     return ['email', 'sms'];
+    // }
 }
