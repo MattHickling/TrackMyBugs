@@ -26,17 +26,23 @@ CREATE TABLE bugs (
     `priority` ENUM('low', 'medium', 'high', 'critical') DEFAULT 'medium',
     `bug_url` TEXT NULL,
     `user_id` INT NULL,
+    `assigned_to` INT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_bugs_project
-        FOREIGN KEY (project_id)
-        REFERENCES projects(id)
+        FOREIGN KEY (`project_id`)
+        REFERENCES `projects`(`id`)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_bugs_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
+        FOREIGN KEY (`user_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE SET NULL
+
+    CONSTRAINT fk_bugs_user
+        FOREIGN KEY (`assigned_to`)
+        REFERENCES `users`(`id`)
         ON DELETE SET NULL
 );
 
@@ -50,7 +56,7 @@ CREATE TABLE comments (
 
     CONSTRAINT fk_comments_bug
         FOREIGN KEY (`bug_id`)
-        REFERENCES bugs(`id`)
+        REFERENCES `bugs`(`id`)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_comments_user
@@ -82,6 +88,6 @@ CREATE TABLE user_notification_channels (
     `push_notifications` BOOLEAN DEFAULT FALSE,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
-    UNIQUE KEY unique_user_notification (user_id)
+    UNIQUE KEY unique_user_notification (`user_id`)
 );
 
