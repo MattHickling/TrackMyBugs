@@ -17,7 +17,6 @@ if (isset($_SESSION['user_id'])) {
     $notifications = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
 
-require_once '../config/config.php';
 if (!isset($priorities)) {
     $stmt = $conn->prepare("SELECT id, name FROM priorities ORDER BY id ASC");
     $stmt->execute();
@@ -199,25 +198,30 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <script>
 $(document).ready(function() {
     var notifications = <?php echo json_encode($notifications); ?>;
-    
+
     notifications.forEach(function(n) {
-        var toast = $('<div class="toast align-items-center text-white bg-primary border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">\
+        var toast = $('<div class="toast align-items-center text-white bg-primary border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true" data-id="' + n.id + '">\
             <div class="d-flex">\
                 <div class="toast-body">' + n.message + '</div>\
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>\
+                <button type="button" class="btn btn-sm btn-light me-2" aria-label="Mark As Read">Mark As Read</button>\
             </div>\
         </div>');
-        
+
         $('#notification-container').append(toast);
-        var bsToast = new bootstrap.Toast(toast[0], { delay: 5000 });
+        var bsToast = new bootstrap.Toast(toast[0], { autohide: false });
         bsToast.show();
     });
 });
 
-setInterval(function() {
-    $.get('/TrackMyBugs/public/fetch-notifications.php', function(data) {
+$(document).on('click', '.toast button', function() {
+    var toastEl = $(this).closest('.toast');
+    var notificationId = toastEl.data('id');
+
+    $.post('/TrackMyBugs/public/mark_notification_read.php', { id: notificationId }, function(response) {
+        if (response.success) {
+            var bsToast = bootstrap.Toast.getInstance(toastEl[0]);
+            bsToast.hide();
+        }
     }, 'json');
-}, 5000);
-
+});
 </script>
-

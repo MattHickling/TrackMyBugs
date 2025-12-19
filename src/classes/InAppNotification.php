@@ -26,5 +26,14 @@ class InAppNotification implements NotificationInterface
         return $stmt->execute();
     }
 
+    public function markAsRead(int $notificationId): bool
+    {
+        $stmt = $this->conn->prepare(
+            "UPDATE notifications SET read_at = NOW() WHERE id = ?"
+        );
+        $stmt->bind_param("i", $notificationId);
+        return $stmt->execute();
+    }
+
 
 }
