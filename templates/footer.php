@@ -1,13 +1,15 @@
 <div class="card text-center">
   <div class="card-header">
-    Featured
+    
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <h5 class="card-title">Track My Bugs</h5>
+    <p class="card-text"> Manage your projects and bugs efficiently.</p>
+    <a href="/TrackMyBugs/public/dashboard.php" class="btn btn-primary">Dashboard</a>
+    <a href="/TrackMyBugs/public/profile.php" class="btn btn-primary">Profile</a>
+    <a href="/TrackMyBugs/public/logout.php" class="btn btn-primary">Logout</a>
   </div>
   <div class="card-footer text-muted">
-    2 days ago
+    &copy; <?= date('Y') ?> Track My Bugs
   </div>
 </div>
