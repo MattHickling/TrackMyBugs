@@ -86,8 +86,17 @@ CREATE TABLE user_notification_channels (
     `email_notifications` BOOLEAN DEFAULT TRUE,
     `sms_notifications` BOOLEAN DEFAULT FALSE,
     `push_notifications` BOOLEAN DEFAULT FALSE,
+    `in_app_notifications` BOOLEAN DEFAULT FALSE,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
     UNIQUE KEY unique_user_notification (`user_id`)
 );
 
+CREATE TABLE notifications (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `message` TEXT NOT NULL,
+    `read_at` DATETIME DEFAULT NULL,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+);

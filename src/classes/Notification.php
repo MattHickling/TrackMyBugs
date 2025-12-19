@@ -14,7 +14,6 @@ class Notification
     public function sendNotification(string $message, array $recipients): bool
     {
         $success = true;
-
         foreach ($this->channels as $channel) {
             foreach ($recipients as $recipient) {
                 if (!$channel->send($recipient, "Notification", $message)) {

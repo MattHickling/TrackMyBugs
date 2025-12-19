@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Project, priority, title, and description must be provided.");
     }
 
-
     $bugRepo->create(
         (int)$projectId,
         $title,

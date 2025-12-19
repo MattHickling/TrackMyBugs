@@ -4,6 +4,19 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once __DIR__ . '/../config/config.php';
+
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT id, message 
+                            FROM notifications 
+                            WHERE user_id = ? AND read_at IS NULL
+                            ORDER BY created_at DESC
+                          ");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $notifications = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
 require_once '../config/config.php';
 if (!isset($priorities)) {
     $stmt = $conn->prepare("SELECT id, name FROM priorities ORDER BY id ASC");
@@ -72,6 +85,7 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         </div>
     </div>
 </nav>
+<div id="notification-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;"></div>
 
 <div class="modal fade" id="addBugModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -182,3 +196,28 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 <script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
 <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+    var notifications = <?php echo json_encode($notifications); ?>;
+    
+    notifications.forEach(function(n) {
+        var toast = $('<div class="toast align-items-center text-white bg-primary border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">\
+            <div class="d-flex">\
+                <div class="toast-body">' + n.message + '</div>\
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>\
+            </div>\
+        </div>');
+        
+        $('#notification-container').append(toast);
+        var bsToast = new bootstrap.Toast(toast[0], { delay: 5000 });
+        bsToast.show();
+    });
+});
+
+setInterval(function() {
+    $.get('/TrackMyBugs/public/fetch-notifications.php', function(data) {
+    }, 'json');
+}, 5000);
+
+</script>
+

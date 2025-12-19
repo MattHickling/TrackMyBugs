@@ -13,7 +13,6 @@
 </p>
 
 <h3>Notification Preferences</h3>
-<?php print_r($profile); ?>
 <form method="post">
     <label>
         <input type="checkbox" name="email_notifications"
@@ -35,6 +34,12 @@
         <input type="checkbox" name="push_notifications"
             <?= (int)$profile['push_notifications'] === 1 ? 'checked' : '' ?>>
         Push notifications
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="in_app_notifications"
+            <?= (int)$profile['in_app_notifications'] === 1 ? 'checked' : '' ?>>
+        In App notifications
     </label>
 
     <br><br>

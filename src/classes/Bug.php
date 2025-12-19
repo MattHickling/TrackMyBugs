@@ -34,7 +34,7 @@ class Bug
         $stmt->execute();
         
         $stmt = $this->conn->prepare(
-        "SELECT u.*, c.email_notifications, c.sms_notifications, c.push_notifications
+        "SELECT u.*, c.email_notifications, c.sms_notifications, c.push_notifications, c.in_app_notifications
             FROM users u
             LEFT JOIN user_notification_channels c ON c.user_id = u.id
             WHERE u.id = ?"
@@ -52,14 +52,16 @@ class Bug
         $stmt->bind_param("i", $projectId);
         $stmt->execute();
         $project = $stmt->get_result()->fetch_assoc();
-
-        if ($userProfile && $userProfile['email_notifications']) {
-            $notification = NotificationService::forUser($userProfile);
+// dd( $userProfile );
+        if ($userProfile) {
+            $notification = NotificationService::forUser($userProfile, $this->conn);
             $notification->sendNotification(
                 "A new bug '{$title}' has been assigned to you in project '{$project['name']}'.",
-                [$userProfile['email']]
+                [$userProfile['id']] 
             );
+
         }
+
 
     }
 

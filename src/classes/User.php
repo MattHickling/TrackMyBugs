@@ -46,7 +46,8 @@ class User
             "SELECT u.*,
                 COALESCE(c.email_notifications, 0) AS email_notifications,
                 COALESCE(c.sms_notifications, 0) AS sms_notifications,
-                COALESCE(c.push_notifications, 0) AS push_notifications
+                COALESCE(c.push_notifications, 0) AS push_notifications,
+                COALESCE(c.in_app_notifications, 0) AS in_app_notifications
             FROM users u
             LEFT JOIN user_notification_channels c ON c.user_id = u.id
             WHERE u.id = ?"
@@ -65,6 +66,7 @@ class User
         $email = isset($data['email_notifications']) ? 1 : 0;
         $sms   = isset($data['sms_notifications']) ? 1 : 0;
         $push  = isset($data['push_notifications']) ? 1 : 0;
+        $in_app = isset($data['in_app_notifications']) ? 1 : 0;
 
         $stmt = $this->conn->prepare(
             "SELECT id FROM user_notification_channels WHERE user_id = ?"
@@ -76,18 +78,18 @@ class User
         if ($result->num_rows > 0) {
             $stmt = $this->conn->prepare(
                 "UPDATE user_notification_channels
-                SET email_notifications = ?, sms_notifications = ?, push_notifications = ?
+                SET email_notifications = ?, sms_notifications = ?, push_notifications = ?, in_app_notifications = ?
                 WHERE user_id = ?"
             );
-            $stmt->bind_param("iiii", $email, $sms, $push, $userId);
+            $stmt->bind_param("iiiii", $email, $sms, $push, $in_app, $userId);
             return $stmt->execute();
         } else {
             $stmt = $this->conn->prepare(
                 "INSERT INTO user_notification_channels
                 (user_id, email_notifications, sms_notifications, push_notifications, created_at)
-                VALUES (?, ?, ?, ?, NOW())"
+                VALUES (?, ?, ?, ?, ?, NOW())"
             );
-            $stmt->bind_param("iiii", $userId, $email, $sms, $push);
+            $stmt->bind_param("iiii", $userId, $email, $sms, $push, $in_app);
             return $stmt->execute();
         }
     }
