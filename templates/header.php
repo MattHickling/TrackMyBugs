@@ -54,29 +54,38 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item me-2">
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addBugModal">
-                        Add Bug
+                    <button type="button" class="btn btn-success btn-sm d-flex flex-column align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#addBugModal" style="width: 80px; height: 80px;">
+                        <span style="font-size: 24px; line-height: 1;">+</span>
+                        <small>Bug</small>
                     </button>
                 </li>
-                <li class="nav-item ml-3">
-                    <button type="button" class="btn btn-primary ml-3 btn-sm" data-bs-toggle="modal" data-bs-target="#addProjectModal">
-                        Add Project
+                <li class="nav-item me-2">
+                    <button type="button" class="btn btn-success btn-sm d-flex flex-column align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#addProjectModal" style="width: 80px; height: 80px;">
+                        <span style="font-size: 24px; line-height: 1;">+</span>
+                        <small>Project</small>
                     </button>
                 </li>
+
                 <?php if (isset($_GET['id'])):?>
-                  <li class="nav-item ms-2">
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addCommentModal">
-                        Add Comment
-                    </button>
+                  <li class="nav-item me-2">
+                      <button type="button" class="btn btn-success btn-sm d-flex flex-column align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#addCommentModal" style="width: 80px; height: 80px;">
+                          <span style="font-size: 24px; line-height: 1;">+</span>
+                          <small>Add Comment</small>
+                      </button>
                   </li>
                 <?php endif; ?>
+                <li class="nav-item me-2" >
+                    <a class="btn btn-primary nav-link text-white" href="/TrackMyBugs/public/dashboard.php">
+                        Dashboard
+                    </a>
+                </li>
                 <li class="nav-item me-2">
-                    <a class="nav-link" href="/TrackMyBugs/public/profile.php">
+                    <a class="btn btn-primary nav-link text-white" href="/TrackMyBugs/public/profile.php">
                         Profile
                     </a>
                 </li>
                 <li class="nav-item me-2">
-                    <a class="nav-link" href="/TrackMyBugs/public/logout.php">
+                    <a class="btn btn-dark nav-link text-warning" href="/TrackMyBugs/public/logout.php">
                         Logout
                     </a>
                 </li>
