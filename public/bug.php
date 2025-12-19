@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $bug_details = null;
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+if (isset($_GET['id'])) {
     $bug_id = (int)$_GET['id'];
     $bug_details = $bugRepo->getBug($bug_id);
 }

@@ -1,22 +1,22 @@
 <?php
 session_start();
+
 require '../config/config.php';
 require '../vendor/autoload.php';
-require '../src/Classes/Project.php'; 
-dd('here');
+require '../src/Classes/Project.php';
+
+use Src\Classes\Project;
+
+$project = new Project($conn);
+$project_details = null;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id   = $_POST['id'] ?? null;
-        $name = $_POST['name'] ?? null;
-        $description = $_POST['description'] ?? null;
-        $created = $_POST['created'] ?? null;
-        $language = $_POST['language'] ?? null;
-        $project = new Project($conn); 
-        $success = $project->createProject(
-        $_POST['name'], 
-        $_POST['description'], 
-        $_POST['language'] 
-    );
-// dd('here');
+    $name = $_POST['name'] ?? null;
+    $description = $_POST['description'] ?? null;
+    $language = $_POST['language'] ?? null;
+
+    $success = $project->createProject($name, $description, $language);
+
     if ($success) {
         $_SESSION['message'] = "Project created successfully!";
         header('Location: dashboard.php'); 
@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $message = "Project already exists.";
     }
-
-    $projectRepo->create(
-        (int)$id,
-        $name,
-        $description,
-        (int)$created,
-        $language
-    );
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['project_id'])) {
+    $project_id = (int)$_GET['project_id'];
+    $project_details = $project->getProject($project_id); 
+}
+
+include '../templates/header.php';
+include '../templates/project-template.php';

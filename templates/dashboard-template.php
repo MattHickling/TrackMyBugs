@@ -79,7 +79,7 @@ $(document).ready(function() {
           
         var data = projectTable.row(this).data();
         if (!data || !data.id) return;
-        window.location.href = '/TrackMyBugs/public/project.php?id=' + data.id;
+        window.location.href = '/TrackMyBugs/public/project.php?project_id=' + data.id;
     });
 
     var bugTable = $('#live_bugs').DataTable({

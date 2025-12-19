@@ -37,5 +37,27 @@ class Project
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
+    public function getProject(int $project_id): ?array
+    {
+        $sql = "SELECT 
+                    p.id,
+                    p.name,
+                    p.description,
+                    p.language,
+                    p.created_at,
+                    COUNT(b.id) AS bug_count
+                FROM projects p
+                LEFT JOIN bugs b ON p.id = b.project_id
+                WHERE p.id = ?
+                GROUP BY p.id, p.name, p.description, p.language, p.created_at
+                LIMIT 1";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc() ?: null;
+    }
+
 
 }
