@@ -10,12 +10,30 @@ require '../config/config.php';
 require '../vendor/autoload.php';
 
 use Src\Classes\Bug;
-
 $bugRepo = new Bug($conn);
+
+use Src\Classes\Project;
+$projectRepo = new Project($conn);
 
 // include '../templates/header.php';
 ?>
 
+<div class="container-fluid mt-1 text-center">
+    <h3>Projects</h3>
+    <table id="live_projects" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Language</th>
+                <th>No. of Bugs</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 <div class="container-fluid mt-1 text-center">
     <h3>Live Bugs</h3>
     <table id="live_bugs" class="table table-striped">
@@ -43,7 +61,28 @@ $bugRepo = new Bug($conn);
 
 <script>
 $(document).ready(function() {
-    var table = $('#live_bugs').DataTable({
+
+    var projectTable = $('#live_projects').DataTable({
+    
+        ajax: '/TrackMyBugs/public/api/live_projects.php',
+        columns: [
+            { data: 'id' },
+            { data: 'name' },
+            { data: 'description' },
+            { data: 'created_at' },
+            { data: 'language' },
+            { data: 'bug_count' }
+        ]
+    });
+
+    $('#live_projects tbody').on('click', 'tr', function () {
+          
+        var data = projectTable.row(this).data();
+        if (!data || !data.id) return;
+        window.location.href = '/TrackMyBugs/public/project.php?id=' + data.id;
+    });
+
+    var bugTable = $('#live_bugs').DataTable({
         ajax: '/TrackMyBugs/public/api/live_bugs.php',
         columns: [
             { data: 'id' },
@@ -60,11 +99,13 @@ $(document).ready(function() {
     });
 
     $('#live_bugs tbody').on('click', 'tr', function () {
-        var data = table.row(this).data();
+        var data = bugTable.row(this).data();
         if (!data || !data.id) return;
         window.location.href = '/TrackMyBugs/public/bug.php?id=' + data.id;
     });
+
 });
+
 </script>
 
 <?php include '../templates/footer.php'; ?>

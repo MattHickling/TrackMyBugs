@@ -1,5 +1,4 @@
 <?php
-header('Content-Type: application/json');
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -10,10 +9,11 @@ if (!isset($_SESSION['user_id'])) {
 require '../../config/config.php';
 require '../../vendor/autoload.php';
 
-use Src\Classes\Bug;
+use Src\Classes\Project;
 
-$bugRepo = new Bug($conn);
+$projectRepo = new Project($conn);
 
-$bugs = $bugRepo->getAllBugs();
+$projects = $projectRepo->getAllProjects();
 
-echo json_encode(['data' => $bugs]);
+header('Content-Type: application/json');
+echo json_encode(['data' => $projects]);

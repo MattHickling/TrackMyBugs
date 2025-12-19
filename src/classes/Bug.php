@@ -61,8 +61,6 @@ class Bug
             );
 
         }
-
-
     }
 
     public function getAllBugs(): array

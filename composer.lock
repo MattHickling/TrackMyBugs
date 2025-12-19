@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39b517af95f319680fca9e0c050ba954",
+    "content-hash": "71296145df62ef9d55361b4605afa307",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -491,29 +491,28 @@
         },
         {
             "name": "jolicode/jolinotif",
-            "version": "v3.3.0",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jolicode/JoliNotif.git",
-                "reference": "7083df4c4dc614f20bf16dc3ad53f705460bd1dd"
+                "reference": "3c3e1c410b107dd2603b732508fd95830f0e0196"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jolicode/JoliNotif/zipball/7083df4c4dc614f20bf16dc3ad53f705460bd1dd",
-                "reference": "7083df4c4dc614f20bf16dc3ad53f705460bd1dd",
+                "url": "https://api.github.com/repos/jolicode/JoliNotif/zipball/3c3e1c410b107dd2603b732508fd95830f0e0196",
+                "reference": "3c3e1c410b107dd2603b732508fd95830f0e0196",
                 "shasum": ""
             },
             "require": {
-                "jolicode/php-os-helper": "^0.3",
-                "php": ">=8.3",
+                "jolicode/php-os-helper": "^0.1.0",
+                "php": ">=8.1",
                 "psr/log": "^1.0 || ^2.0 || ^3.0",
                 "symfony/deprecation-contracts": "^3",
-                "symfony/process": "^6.4 || ^7.3 || ^8.0"
+                "symfony/process": "^5.4 || ^6.0 || ^7.0"
             },
             "require-dev": {
-                "monolog/monolog": "^3.9",
-                "phpunit/phpunit": "^12.4.5",
-                "symfony/finder": "^6.4 || ^7.3 || ^8.0"
+                "symfony/finder": "^5.4 || ^6.0 || ^7.0",
+                "symfony/phpunit-bridge": "^5.4 || ^6.0 || ^7.0"
             },
             "suggest": {
                 "ext-ffi": "Needed to send notifications via libnotify on Linux"
@@ -522,11 +521,6 @@
                 "jolinotif"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Joli\\JoliNotif\\": "src/"
@@ -552,7 +546,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jolicode/JoliNotif/issues",
-                "source": "https://github.com/jolicode/JoliNotif/tree/v3.3.0"
+                "source": "https://github.com/jolicode/JoliNotif/tree/v2.7.3"
             },
             "funding": [
                 {
@@ -560,27 +554,27 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-04T10:50:17+00:00"
+            "time": "2024-09-30T13:34:54+00:00"
         },
         {
             "name": "jolicode/php-os-helper",
-            "version": "v0.3.0",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jolicode/php-os-helper.git",
-                "reference": "e71596ae67d477fe214a5908f5522b9e4d19fd37"
+                "reference": "1622ad8bbcab98e62b5c041397e8519f10d90e29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jolicode/php-os-helper/zipball/e71596ae67d477fe214a5908f5522b9e4d19fd37",
-                "reference": "e71596ae67d477fe214a5908f5522b9e4d19fd37",
+                "url": "https://api.github.com/repos/jolicode/php-os-helper/zipball/1622ad8bbcab98e62b5c041397e8519f10d90e29",
+                "reference": "1622ad8bbcab98e62b5c041397e8519f10d90e29",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2"
+                "php": ">=8.1"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^6.4"
+                "symfony/phpunit-bridge": "^6.3.1"
             },
             "type": "library",
             "autoload": {
@@ -608,9 +602,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jolicode/php-os-helper/issues",
-                "source": "https://github.com/jolicode/php-os-helper/tree/v0.3.0"
+                "source": "https://github.com/jolicode/php-os-helper/tree/v0.1.0"
             },
-            "time": "2025-10-11T13:02:06+00:00"
+            "time": "2023-12-03T12:46:03+00:00"
         },
         {
             "name": "nesbot/carbon",

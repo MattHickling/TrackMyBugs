@@ -1,10 +1,12 @@
 <?php
 
+namespace Src\Classes;
+
 class Project
 {
-    private mysqli $conn;
+    private \mysqli $conn;
 
-    public function __construct(mysqli $conn)
+    public function __construct(\mysqli $conn)
     {
         $this->conn = $conn;
     }
@@ -19,17 +21,21 @@ class Project
     
     public function getAllProjects(): array
     {
-        $sql = "SELECT
+        $sql = "SELECT 
                     p.id,
                     p.name,
                     p.description,
                     p.language,
-                    p.created_at
+                    p.created_at,
+                    COUNT(b.id) AS bug_count
                 FROM projects p
+                LEFT JOIN bugs b ON p.id = b.project_id
+                GROUP BY p.id, p.name, p.description, p.language, p.created_at
                 ORDER BY p.id DESC";
 
-        return $this->conn
-            ->query($sql)
-            ->fetch_all(MYSQLI_ASSOC);
+        $result = $this->conn->query($sql);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
+
+
 }
