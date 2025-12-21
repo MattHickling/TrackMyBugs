@@ -17,6 +17,17 @@ if (isset($_SESSION['user_id'])) {
     $notifications = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
 
+$unread_count = 0;
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT COUNT(*) AS unread_count
+                            FROM notifications 
+                            WHERE user_id = ? AND read_at IS NULL");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    $unread_count = $result['unread_count'] ?? 0;
+}
+
 if (!isset($priorities)) {
     $stmt = $conn->prepare("SELECT id, name FROM priorities ORDER BY id ASC");
     $stmt->execute();
@@ -79,11 +90,17 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         Dashboard
                     </a>
                 </li>
-                <li class="nav-item me-2">
-                    <a class="btn btn-primary nav-link text-white" href="/TrackMyBugs/public/profile.php">
-                        Profile
-                    </a>
-                </li>
+                <li class="nav-item me-2 position-relative">
+                  <a class="btn btn-primary nav-link text-white" href="/TrackMyBugs/public/profile.php">
+                      Profile
+                      <?php if ($unread_count > 0): ?>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              <?= $unread_count ?>
+                              <span class="visually-hidden">unread notifications</span>
+                          </span>
+                      <?php endif; ?>
+                  </a>
+              </li>
                 <li class="nav-item me-2">
                     <a class="btn btn-dark nav-link text-warning" href="/TrackMyBugs/public/logout.php">
                         Logout
@@ -93,7 +110,7 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         </div>
     </div>
 </nav>
-<div id="notification-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;"></div>
+<!-- <div id="notification-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;"></div> -->
 
 <div class="modal fade" id="addBugModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -206,31 +223,27 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
 <script>
 $(document).ready(function() {
-    var notifications = <?php echo json_encode($notifications); ?>;
+    function updateNotificationBadge() {
+        $.get('/TrackMyBugs/public/unread_notifications_count.php', function(data) {
+            var badge = $('.nav-item a[href$="profile.php"] .badge');
+            
+            if (data.count > 0) {
+                if (badge.length === 0) {
+                    $('.nav-item a[href$="profile.php"]').append(
+                        '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' +
+                        data.count +
+                        '<span class="visually-hidden">unread notifications</span></span>'
+                    );
+                } else {
+                    badge.text(data.count);
+                }
+            } else {
+                badge.remove(); 
+            }
+        }, 'json');
+    }
 
-    notifications.forEach(function(n) {
-        var toast = $('<div class="toast align-items-center text-white bg-primary border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true" data-id="' + n.id + '">\
-            <div class="d-flex">\
-                <div class="toast-body">' + n.message + '</div>\
-                <button type="button" class="btn btn-sm btn-light me-2" aria-label="Mark As Read">Mark As Read</button>\
-            </div>\
-        </div>');
-
-        $('#notification-container').append(toast);
-        var bsToast = new bootstrap.Toast(toast[0], { autohide: false });
-        bsToast.show();
-    });
-});
-
-$(document).on('click', '.toast button', function() {
-    var toastEl = $(this).closest('.toast');
-    var notificationId = toastEl.data('id');
-
-    $.post('/TrackMyBugs/public/mark_notification_read.php', { id: notificationId }, function(response) {
-        if (response.success) {
-            var bsToast = bootstrap.Toast.getInstance(toastEl[0]);
-            bsToast.hide();
-        }
-    }, 'json');
+    updateNotificationBadge();
+    setInterval(updateNotificationBadge, 5000);
 });
 </script>
