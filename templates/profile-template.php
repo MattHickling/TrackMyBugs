@@ -1,5 +1,6 @@
-<?php require_once 'header.php'; ?>
-
+<?php require_once 'header.php'; 
+use Carbon\Carbon;
+?>
 <h2>User Profile</h2>
 
 <p>
@@ -19,17 +20,13 @@
             <?= (int)$profile['email_notifications'] === 1 ? 'checked' : '' ?>>
         Email notifications
     </label>
-
     <br>
-
     <label>
         <input type="checkbox" name="sms_notifications"
             <?= (int)$profile['sms_notifications'] === 1  ? 'checked' : '' ?>>
         SMS notifications
     </label>
-
     <br>
-
     <label>
         <input type="checkbox" name="push_notifications"
             <?= (int)$profile['push_notifications'] === 1 ? 'checked' : '' ?>>
@@ -41,9 +38,7 @@
             <?= (int)$profile['in_app_notifications'] === 1 ? 'checked' : '' ?>>
         In App notifications
     </label>
-
     <br><br>
-
     <button type="submit">Save preferences</button>
 </form>
 <div class="text-right">
@@ -52,5 +47,30 @@
     <button type="submit" class="btn btn-danger mt-3">Delete Account</button>
 </form>
 </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($user_notifications)):?>
+            <?php foreach ($user_notifications as $user_notification): 
+                $created_at = Carbon::parse($user_notification['created_at'])->format('H:i:s d/m/Y');
+                ?>
+                <tr>
+                    <td><?= htmlspecialchars($created_at?? '') ?></td>
+                    <td><?= htmlspecialchars($user_notification['message'] ?? '') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="2">No notifications found.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
 
 <?php require_once 'footer.php'; ?>

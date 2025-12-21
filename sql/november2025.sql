@@ -101,14 +101,4 @@ CREATE TABLE notifications (
     FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 );
 
-CREATE TABLE activity_logs (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `user_id` INT NOT NULL,
-    `bug_id` INT NULL,
-    `project_id` INT NULL,
-    `tried` TEXT NOT NULL,
-    `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`bug_id`) REFERENCES `bugs`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`project_id`) REFERENCES `projects`(`id`) ON DELETE CASCADE
-);
+

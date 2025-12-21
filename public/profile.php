@@ -19,5 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $profile = $user->getById($_SESSION['user_id']);
+// dd( $profile );
+if(isset($profile['id'])) {
+    $user_notifications = $user->getAllNotifications($profile['id']);
+    // dd( $notifications );
+}
 
 require_once '../templates/profile-template.php';

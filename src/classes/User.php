@@ -2,9 +2,9 @@
 
 class User
 {
-    private mysqli $conn;
+    private \mysqli $conn;
 
-    public function __construct(mysqli $conn)
+    public function __construct(\mysqli $conn)
     {
         $this->conn = $conn;
     }
@@ -94,6 +94,23 @@ class User
         }
     }
 
+    public function getAllNotifications(int $userId): array
+    {
+        $sql = "SELECT
+                    id,
+                    message,
+                    created_at
+                FROM notifications
+                WHERE user_id = ? AND read_at IS NULL
+                ORDER BY id DESC";
 
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    
 
 }
