@@ -54,6 +54,8 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <link href="/TrackMyBugs/public/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/TrackMyBugs/public/assets/css/font-awesome.css" rel="stylesheet">
     <link href="/TrackMyBugs/public/assets/css/login.css" rel="stylesheet">
+    <link rel="stylesheet" href="/TrackMyBugs/public/assets/css/main.css">
+
     <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/TrackMyBugs/public/assets/datatables/css/datatables.min.css">
 </head>

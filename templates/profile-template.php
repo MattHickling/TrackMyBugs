@@ -1,6 +1,8 @@
 <?php require_once 'header.php'; 
 use Carbon\Carbon;
 ?>
+
+<div class="profile-page">
 <h2>User Profile</h2>
 
 <p>
@@ -41,12 +43,7 @@ use Carbon\Carbon;
     <br><br>
     <button type="submit">Save preferences</button>
 </form>
-<div class="text-right">
-<form action="post_delete_account.php" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
-    <input type="hidden" name="user_id" value="<?= (int)$profile['id'] ?>">
-    <button type="submit" class="btn btn-danger mt-3">Delete Account</button>
-</form>
-</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -58,7 +55,6 @@ use Carbon\Carbon;
         <?php if (!empty($user_notifications)):?>
             <?php foreach ($user_notifications as $user_notification): 
                 $created_at = Carbon::parse($user_notification['created_at'])->format('H:i:s d/m/Y');
-                // dd($user_notification);
                 ?>
                 <tr>
                     <td><?= htmlspecialchars($created_at?? '') ?></td>
@@ -78,5 +74,12 @@ use Carbon\Carbon;
     </tbody>
 </table>
 
+<div class="text-left">
+<form action="post_delete_account.php" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+    <input type="hidden" name="user_id" value="<?= (int)$profile['id'] ?>">
+    <button type="submit" class="btn btn-danger mt-3">Delete Account</button>
+</form>
+</div>
+</div>
 
 <?php require_once 'footer.php'; ?>

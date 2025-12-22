@@ -1,0 +1,8 @@
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+    filter: brightness(0.95);
+}

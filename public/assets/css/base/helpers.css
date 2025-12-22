@@ -1,0 +1,19 @@
+.text-muted {
+    color: #6c757d;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-sm {
+    margin-top: 0.5rem;
+}
+
+.mt-md {
+    margin-top: 1rem;
+}
+
+.mt-lg {
+    margin-top: 2rem;
+}
