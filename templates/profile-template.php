@@ -58,10 +58,16 @@ use Carbon\Carbon;
         <?php if (!empty($user_notifications)):?>
             <?php foreach ($user_notifications as $user_notification): 
                 $created_at = Carbon::parse($user_notification['created_at'])->format('H:i:s d/m/Y');
+                // dd($user_notification);
                 ?>
                 <tr>
                     <td><?= htmlspecialchars($created_at?? '') ?></td>
                     <td><?= htmlspecialchars($user_notification['message'] ?? '') ?></td>
+                    <td><form action="post_mark_as_read.php" method="post">
+                            <input type="hidden" name="id" value="<?= (int)$user_notification['id'] ?>">
+                            <button type="submit" class="btn btn-danger mt-3">Delete Notification</button>
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
