@@ -4,12 +4,10 @@ use Carbon\Carbon;
 
 <div class="profile-page">
 <h2>User Profile</h2>
-
 <p>
     <strong>Name:</strong>
     <?= htmlspecialchars($profile['first_name'] . ' ' . $profile['surname']) ?>
 </p>
-
 <p>
     <strong>Email:</strong>
     <?= htmlspecialchars($profile['email']) ?>
@@ -74,12 +72,12 @@ use Carbon\Carbon;
     </tbody>
 </table>
 
-<div class="text-left">
-<form action="post_delete_account.php" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
-    <input type="hidden" name="user_id" value="<?= (int)$profile['id'] ?>">
-    <button type="submit" class="btn btn-danger mt-3">Delete Account</button>
-</form>
-</div>
+    <div class="text-left">
+        <form action="post_delete_account.php" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            <input type="hidden" name="user_id" value="<?= (int)$profile['id'] ?>">
+            <button type="submit" class="btn btn-danger mt-3">Delete Account</button>
+        </form>
+    </div>
 </div>
 
 <?php require_once 'footer.php'; ?>

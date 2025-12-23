@@ -17,44 +17,44 @@ $projectRepo = new Project($conn);
 
 // include '../templates/header.php';
 ?>
-
-<div class="container-fluid mt-1 text-center">
-    <h3>Projects</h3>
-    <table id="live_projects" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Project ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Created</th>
-                <th>Language</th>
-                <th>No. of Bugs</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<div class="dashboard-page">
+    <div class="container-fluid mt-1 text-center">
+        <h3>Projects</h3>
+        <table id="live_projects" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Project ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Created</th>
+                    <th>Language</th>
+                    <th>No. of Bugs</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="container-fluid mt-1 text-center">
+        <h3>Live Bugs</h3>
+        <table id="live_bugs" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Bug ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Project</th>
+                    <th>Assigned To</th>
+                    <th>Priority</th>
+                    <th>Reported By</th>
+                    <th>Status</th>
+                    <th>Bug URL</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
-<div class="container-fluid mt-1 text-center">
-    <h3>Live Bugs</h3>
-    <table id="live_bugs" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Bug ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Project</th>
-                <th>Assigned To</th>
-                <th>Priority</th>
-                <th>Reported By</th>
-                <th>Status</th>
-                <th>Bug URL</th>
-                <th>Created</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
-
 <script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
 <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/TrackMyBugs/public/assets/datatables/js/datatables.min.js"></script>

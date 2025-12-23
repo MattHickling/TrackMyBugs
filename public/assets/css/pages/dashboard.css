@@ -1,0 +1,67 @@
+.dashboard-page {
+    padding: 1rem;
+}
+
+.dashboard-page h3 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.dashboard-page .container-fluid {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+}
+
+.dashboard-page table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.dashboard-page table thead th {
+    background-color: #f1f3f5;
+    font-weight: 600;
+    text-align: center;
+}
+
+.dashboard-page table tbody tr {
+    cursor: pointer;
+}
+
+.dashboard-page table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.dashboard-page .dataTables_wrapper {
+    margin-top: 1rem;
+}
+
+.dashboard-page .dataTables_filter input {
+    margin-left: 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.dashboard-page .dataTables_paginate .paginate_button {
+    padding: 0.25rem 0.75rem;
+}
+.dashboard-page .dataTables_wrapper {
+    margin-top: 1rem;
+}
+
+.dashboard-page .dataTables_filter input {
+    margin-left: 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.dashboard-page .dataTables_paginate .paginate_button {
+    padding: 0.25rem 0.75rem;
+}
+
+.dashboard-page td,
+.dashboard-page th {
+    vertical-align: middle;
+    white-space: nowrap;
+}
