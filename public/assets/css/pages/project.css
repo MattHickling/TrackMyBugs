@@ -1,0 +1,40 @@
+.project-page {
+    margin: 1.5rem;
+}
+
+.project-header {
+    background-color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+.project-header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.project-meta {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.project-meta p {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.project-meta p:last-child {
+    margin-bottom: 0;
+}
+
+.project-meta strong {
+    display: inline-block;
+    min-width: 120px;
+    font-weight: 600;
+    color: #495057;
+}
