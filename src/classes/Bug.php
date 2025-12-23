@@ -143,5 +143,15 @@ class Bug
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function markAsClosed(int $bugId): void
+    {
+        $stmt = $this->conn->prepare(
+            "UPDATE bugs SET status = 'Closed' WHERE id = ?"
+        );
+
+        $stmt->bind_param("i", $bugId);
+        $stmt->execute();
+    }
+
 
 }

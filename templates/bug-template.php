@@ -21,6 +21,12 @@
             <p><strong>Created at:</strong> <?= htmlspecialchars($bug_details['created_at']) ?></p>
         </div>
     </div>
+
+    <form action="post_bug_closed.php" method="POST" class="mt-3">
+        <input type="hidden" name="bug_id" value="<?= (int)$bug_details['id'] ?>">
+        <button type="submit" class="btn btn-danger">Close Bug</button>
+    </form>
+    
 <?php else: ?>
     <p>Bug not found.</p>
 <?php endif; ?>
