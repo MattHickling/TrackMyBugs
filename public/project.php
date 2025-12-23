@@ -29,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['project_id'])) {
     $project_id = (int)$_GET['project_id'];
     $project_details = $project->getProject($project_id); 
+
+    if ($project_details) {
+        $languageMap = array_column($languages, 'name', 'id');
+        $project_details['language_name'] = $languageMap[$project_details['language']] ?? 'Unknown';
+    }
+
 }
 
 include '../templates/header.php';
