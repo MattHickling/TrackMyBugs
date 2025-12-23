@@ -52,18 +52,17 @@ class Bug
         $stmt->bind_param("i", $projectId);
         $stmt->execute();
         $project = $stmt->get_result()->fetch_assoc();
-// dd( $userProfile );
+
         if ($userProfile) {
             $notification = NotificationService::forUser($userProfile, $this->conn);
             $notification->sendNotification(
                 "A new bug '{$title}' has been assigned to you in project '{$project['name']}'.",
                 [$userProfile['id']] 
             );
-
         }
     }
 
-    public function getAllBugs(): array
+    public function getAllBugs(int $projectId = null)
     {
         $sql = "SELECT
                     b.id,
@@ -78,10 +77,8 @@ class Bug
                     p.name AS project_name
                 FROM bugs b
                 JOIN projects p ON p.id = b.project_id
-
                 LEFT JOIN users reporter ON reporter.id = b.user_id
                 LEFT JOIN users assignee ON assignee.id = b.assigned_to
-
                 ORDER BY b.id DESC
             ";
 
@@ -102,17 +99,13 @@ class Bug
                 b.status AS status_name,
                 b.bug_url,
                 b.created_at,
-
                 reporter.first_name AS reported_by,
                 assignee.first_name AS assigned_to,
-
                 p.name AS project_name
             FROM bugs b
             JOIN projects p ON p.id = b.project_id
-
             LEFT JOIN users reporter ON reporter.id = b.user_id
             LEFT JOIN users assignee ON assignee.id = b.assigned_to
-
             WHERE b.id = ?
             "
         );
@@ -122,5 +115,33 @@ class Bug
 
         return $stmt->get_result()->fetch_assoc() ?: null;
     }
+
+    public function getBugsByProject(int $projectId): array
+    {
+        $sql = "SELECT
+                    b.id,
+                    b.title,
+                    b.description,
+                    b.priority AS priority_name,
+                    b.status AS status_name,
+                    b.bug_url,
+                    b.created_at,
+                    reporter.first_name AS reported_by,
+                    assignee.first_name AS assigned_to,
+                    p.name AS project_name
+                FROM bugs b
+                JOIN projects p ON p.id = b.project_id
+                LEFT JOIN users reporter ON reporter.id = b.user_id
+                LEFT JOIN users assignee ON assignee.id = b.assigned_to
+                WHERE b.project_id = ?
+                ORDER BY b.id DESC";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 
 }

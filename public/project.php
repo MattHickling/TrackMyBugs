@@ -4,17 +4,19 @@ session_start();
 require '../config/config.php';
 require '../vendor/autoload.php';
 require '../src/Classes/Project.php';
+require '../src/Classes/Bug.php';
 
 use Src\Classes\Project;
+use Src\Classes\Bug;
 
 $project = new Project($conn);
 $project_details = null;
+$bugRepo = new Bug($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? null;
     $description = $_POST['description'] ?? null;
     $language = $_POST['language'] ?? null;
-
     $success = $project->createProject($name, $description, $language);
 
     if ($success) {
@@ -35,7 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['project_id'])) {
         $project_details['language_name'] = $languageMap[$project_details['language']] ?? 'Unknown';
     }
 
+    $bug_details = $bugRepo->getBugsByProject($project_id);
 }
+
 
 include '../templates/header.php';
 include '../templates/project-template.php';
