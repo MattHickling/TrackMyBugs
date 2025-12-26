@@ -36,12 +36,12 @@
     </table>
 </div>
 
-<script src="/TrackMyBugs/public/assets/datatables/js/datatables.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/datatables/js/datatables.min.js"></script>
 <script>
 $(document).ready(function() {
     var bugTable = $('#live_project_bugs').DataTable({
         ajax: {
-            url: '/TrackMyBugs/public/api/live_project_bugs.php',
+            url: '<?= APP_BASE_URL ?>/api/live_project_bugs.php',
             data: {
                 project_id: <?= (int)$project_id ?>
             }
@@ -63,7 +63,7 @@ $(document).ready(function() {
     $('#live_project_bugs tbody').on('click', 'tr', function () {
         var data = bugTable.row(this).data();
         if (!data || !data.id) return;
-        window.location.href = '/TrackMyBugs/public/bug.php?id=' + data.id;
+        window.location.href = '<?= APP_BASE_URL ?>/bug.php?id=' + data.id;
     });
 });
 </script>

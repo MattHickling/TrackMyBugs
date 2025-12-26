@@ -35,15 +35,15 @@ if (isset($comment_details)):
     </div>
 </div>
 
-<script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
-<script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
-<script src="/TrackMyBugs/public/assets/datatables/js/datatables.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/datatables/js/datatables.min.js"></script>
 
 <script>
     jQuery(document).ready(function() {
 
         var table = jQuery('#bug_comments').DataTable({
-            ajax: '/TrackMyBugs/public/api/bug_comments.php',
+            ajax: '<?= APP_BASE_URL ?>/api/bug_comments.php',
                 columns: [
                     { data: 'created_at' },
                     { data: 'comment' },
@@ -54,7 +54,7 @@ if (isset($comment_details)):
         $('#bug_comments tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
             if (!data || !data.id) return;
-            window.location.href = '/TrackMyBugs/public/comment.php?id=' + data.id;
+            window.location.href = '<?= APP_BASE_URL ?>/comment.php?id=' + data.id;
         });
     });
 

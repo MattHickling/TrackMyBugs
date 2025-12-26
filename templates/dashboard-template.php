@@ -55,16 +55,16 @@ $projectRepo = new Project($conn);
         </table>
     </div>
 </div>
-<script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
-<script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
-<script src="/TrackMyBugs/public/assets/datatables/js/datatables.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/datatables/js/datatables.min.js"></script>
 
 <script>
 $(document).ready(function() {
 
     var projectTable = $('#live_projects').DataTable({
     
-        ajax: '/TrackMyBugs/public/api/live_projects.php',
+        ajax: '<?= APP_BASE_URL ?>/api/live_projects.php',
         columns: [
             { data: 'id' },
             { data: 'name' },
@@ -79,11 +79,11 @@ $(document).ready(function() {
           
         var data = projectTable.row(this).data();
         if (!data || !data.id) return;
-        window.location.href = '/TrackMyBugs/public/project.php?project_id=' + data.id;
+        window.location.href = '<?= APP_BASE_URL ?>/project.php?project_id=' + data.id;
     });
 
     var bugTable = $('#live_bugs').DataTable({
-        ajax: '/TrackMyBugs/public/api/live_bugs.php',
+        ajax: '<?= APP_BASE_URL ?>/api/live_bugs.php',
         columns: [
             { data: 'id' },
             { data: 'title' },
@@ -101,7 +101,7 @@ $(document).ready(function() {
     $('#live_bugs tbody').on('click', 'tr', function () {
         var data = bugTable.row(this).data();
         if (!data || !data.id) return;
-        window.location.href = '/TrackMyBugs/public/bug.php?id=' + data.id;
+        window.location.href = '<?= APP_BASE_URL ?>/bug.php?id=' + data.id;
     });
 
 });
