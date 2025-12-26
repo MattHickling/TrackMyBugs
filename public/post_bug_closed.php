@@ -2,9 +2,7 @@
 require_once '../config/config.php';
 require_once '../src/Classes/InAppNotification.php';
 session_start();
-// if (!isset($_POST['id'], $_SESSION['user_id'])) exit;
-// dd($_REQUEST);
-// dd('456');
+
 $bugId = (int)$_REQUEST['bug_id'];
 $userId = $_SESSION['user_id'];
 

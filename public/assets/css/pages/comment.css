@@ -1,0 +1,96 @@
+.comment-page {
+    margin: 1.5rem;
+}
+
+/* Header block */
+.comment-header {
+    background-color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+.comment-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Meta block */
+.comment-meta {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+.comment-meta p {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.comment-meta p:last-child {
+    margin-bottom: 0;
+}
+
+.comment-meta strong {
+    display: inline-block;
+    min-width: 120px;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Comments table */
+.comment-page table {
+    background-color: #ffffff;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.comment-page thead th {
+    background-color: #f1f3f5;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.comment-page tbody td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.comment-page tbody tr {
+    cursor: pointer;
+}
+
+.comment-page tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+
+.comment-page .dataTables_wrapper {
+    margin-top: 1rem;
+}
+
+.comment-page .dataTables_filter {
+    margin-bottom: 0.75rem;
+}
+
+.comment-page .dataTables_filter input {
+    margin-left: 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid #ced4da;
+    padding: 0.25rem 0.5rem;
+}
+
+.comment-page .dataTables_paginate .paginate_button {
+    padding: 0.25rem 0.75rem;
+}
