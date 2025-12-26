@@ -1,6 +1,7 @@
 <?php
 
 namespace Src\Classes;
+use Src\Classes\Comment;
 
 use Src\Services\NotificationService;
 

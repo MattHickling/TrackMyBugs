@@ -3,6 +3,7 @@ session_start();
 require '../config/config.php';
 require '../src/Classes/Comment.php';
 use Carbon\Carbon;
+use Src\Classes\Comment;
 
 $commentRepo = new Comment($conn);
 

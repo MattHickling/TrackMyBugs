@@ -42,14 +42,19 @@ if (isset($comment_details)):
 <script>
     jQuery(document).ready(function() {
 
-        var table = jQuery('#bug_comments').DataTable({
-            ajax: '<?= APP_BASE_URL ?>/api/bug_comments.php',
-                columns: [
-                    { data: 'created_at' },
-                    { data: 'comment' },
-                    { data: 'added_by' }
-                ]
+       var table = jQuery('#bug_comments').DataTable({
+            ajax: {
+                url: '<?= APP_BASE_URL ?>/api/bug_comments.php',
+                data: { bug_id: <?= (int)$_GET['id'] ?> },
+                dataSrc: 'data'
+            },
+            columns: [
+                { data: 'created_at' },
+                { data: 'comment' },
+                { data: 'added_by' }
+            ]
         });
+
 
         $('#bug_comments tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
