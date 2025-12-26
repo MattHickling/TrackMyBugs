@@ -15,6 +15,10 @@ $DB_NAME = $_ENV['DB_DATABASE'];
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
+if (!defined('APP_BASE_URL')) {
+    define('APP_BASE_URL', rtrim($_ENV['APP_BASE_URL'], '/'));
+}
+
 try {
     $conn = new mysqli($HOSTNAME, $USERNAME, $PASSWORD, $DB_NAME);
     $conn->set_charset('utf8mb4'); 

@@ -51,19 +51,19 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrackMyBugs</title>
-    <link href="/TrackMyBugs/public/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/TrackMyBugs/public/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/TrackMyBugs/public/assets/css/login.css" rel="stylesheet">
-    <link rel="stylesheet" href="/TrackMyBugs/public/assets/css/main.css">
+    <link rel="stylesheet" href="<?= APP_BASE_URL ?>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= APP_BASE_URL ?>/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="<?= APP_BASE_URL ?>/assets/css/login.css">
+    <link rel="stylesheet" href="<?= APP_BASE_URL ?>/assets/css/main.css">
+    <link rel="stylesheet" href="<?= APP_BASE_URL ?>/assets/datatables/css/datatables.min.css">
 
-    <script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/TrackMyBugs/public/assets/datatables/css/datatables.min.css">
+    <script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/TrackMyBugs/public/dashboard.php">TrackMyBugs</a>
+        <a class="navbar-brand" href="<?= APP_BASE_URL ?>/dashboard.php">TrackMyBugs</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item me-2">
@@ -88,12 +88,12 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                   </li>
                 <?php endif; ?>
                 <li class="nav-item me-2" >
-                    <a class="btn btn-primary nav-link text-white" href="/TrackMyBugs/public/dashboard.php">
+                    <a class="btn btn-primary nav-link text-white" href="<?= APP_BASE_URL ?>/dashboard.php">
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item me-2 position-relative">
-                  <a class="btn btn-primary nav-link text-white" href="/TrackMyBugs/public/profile.php">
+                  <a class="btn btn-primary nav-link text-white" href="<?= APP_BASE_URL ?>/profile.php">
                       Profile
                       <?php if ($unread_count > 0): ?>
                           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -104,7 +104,7 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                   </a>
               </li>
                 <li class="nav-item me-2">
-                    <a class="btn btn-dark nav-link text-warning" href="/TrackMyBugs/public/logout.php">
+                    <a class="btn btn-dark nav-link text-warning" href="<?= APP_BASE_URL ?>/logout.php">
                         Logout
                     </a>
                 </li>
@@ -117,49 +117,49 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <div class="modal fade" id="addBugModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
-      <form action="/TrackMyBugs/public/bug.php" method="post">
-        <div class="mb-2">
-         <label for="project_id" class="form-label">Which Project Does This Bug Belong To?</label>
-          <select class="form-select form-select-sm" id="project_id" name="project_id" required>
-            <option value="">Select</option>
-            <?php foreach ($projects as $project): ?>
-              <option value="<?php echo $project['id']; ?>"><?php echo htmlspecialchars($project['name']); ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label for="bug_title" class="form-label">Bug Title</label>
-          <input type="text" class="form-control form-control-sm" id="bug_title" name="bug_title" required>
-        </div>
-        <div class="mb-2">
-          <label for="bug_description" class="form-label">Description</label>
-          <textarea class="form-control form-control-sm" id="bug_description" name="bug_description" rows="2" required></textarea>
-        </div>
-         <div class="mb-2">
-          <label for="bug_url" class="form-label">Bug URL</label>
-          <input type="text" class="form-control form-control-sm" id="bug_url" name="bug_url" required>
-        </div>
-        <div class="mb-2">
-          <label for="assigned_to" class="form-label">Assigned To</label>
-          <select class="form-select form-select-sm" id="assigned_to" name="assigned_to" required>
-            <option value="">Select</option>
-            <?php foreach ($users as $user): ?>
-              <option value="<?php echo $user['id']; ?>"><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['surname']); ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label for="priority" class="form-label">Priority</label>
-          <select class="form-select form-select-sm" id="priority" name="priority" required>
-            <option value="">Select</option>
-            <?php foreach ($priorities as $priority): ?>
-              <option value="<?php echo $priority['id']; ?>"><?php echo htmlspecialchars($priority['name']); ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-        <div class="text-end">
-          <button type="submit" class="btn btn-success btn-sm">Add Bug</button>
-        </div>
+        <form action="<?= APP_BASE_URL ?>/bug.php" method="post">
+          <div class="mb-2">
+          <label for="project_id" class="form-label">Which Project Does This Bug Belong To?</label>
+            <select class="form-select form-select-sm" id="project_id" name="project_id" required>
+              <option value="">Select</option>
+              <?php foreach ($projects as $project): ?>
+                <option value="<?php echo $project['id']; ?>"><?php echo htmlspecialchars($project['name']); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label for="bug_title" class="form-label">Bug Title</label>
+            <input type="text" class="form-control form-control-sm" id="bug_title" name="bug_title" required>
+          </div>
+          <div class="mb-2">
+            <label for="bug_description" class="form-label">Description</label>
+            <textarea class="form-control form-control-sm" id="bug_description" name="bug_description" rows="2" required></textarea>
+          </div>
+          <div class="mb-2">
+            <label for="bug_url" class="form-label">Bug URL</label>
+            <input type="text" class="form-control form-control-sm" id="bug_url" name="bug_url" required>
+          </div>
+          <div class="mb-2">
+            <label for="assigned_to" class="form-label">Assigned To</label>
+            <select class="form-select form-select-sm" id="assigned_to" name="assigned_to" required>
+              <option value="">Select</option>
+              <?php foreach ($users as $user): ?>
+                <option value="<?php echo $user['id']; ?>"><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['surname']); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label for="priority" class="form-label">Priority</label>
+            <select class="form-select form-select-sm" id="priority" name="priority" required>
+              <option value="">Select</option>
+              <?php foreach ($priorities as $priority): ?>
+                <option value="<?php echo $priority['id']; ?>"><?php echo htmlspecialchars($priority['name']); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-success btn-sm">Add Bug</button>
+          </div>
       </form>
     </div>
   </div>
@@ -169,8 +169,7 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <div class="modal fade" id="addProjectModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
-      <form action="/TrackMyBugs/public/project.php" method="post">
-        
+      <form action="<?= APP_BASE_URL ?>/project.php" method="post">
         <div class="mb-2">
           <label for="name" class="form-label">Project Name</label>
           <input type="text" class="form-control form-control-sm" id="name" name="name" required>
@@ -203,12 +202,10 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <div class="modal fade" id="addCommentModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
-      <form action="/TrackMyBugs/public/comment.php" method="post">
+      <form action="<?= APP_BASE_URL ?>/comment.php" method="post">
         <div class="mb-3">
-
           <input type="hidden" id="bug_id" name="bug_id" value="<?php echo (int)$_GET['id']; ?>">
           <input type="hidden" id="user_id" name="user_id" value="<?php echo (int)$_SESSION['user_id']; ?>">
-          
           <label for="comment" class="form-label">Comment</label>
           <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
         </div>
@@ -221,12 +218,12 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 </div>
 <?php endif; ?>
 
-<script src="/TrackMyBugs/public/assets/js/jquery-3.6.0.min.js"></script>
-<script src="/TrackMyBugs/public/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
 <script>
 $(document).ready(function() {
     function updateNotificationBadge() {
-        $.get('/TrackMyBugs/public/unread_notifications_count.php', function(data) {
+        $.get('<?= APP_BASE_URL ?>/unread_notifications_count.php', function(data) {
             var badge = $('.nav-item a[href$="profile.php"] .badge');
             
             if (data.count > 0) {
