@@ -1,0 +1,1 @@
+{"version":2,"defects":{"UserDatabaseTest::testUserCanBeInsertedIntoDatabase":8},"times":{"NotificationInterfaceTest::testEmailNotificationImplementsInterface":0.013,"PasswordHashTest::testPasswordHashVerification":0.696,"UserDatabaseTest::testUserCanBeInsertedIntoDatabase":0.259}}
