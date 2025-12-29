@@ -9,8 +9,6 @@ if (isset($comment_details)):
         <h2 class="ms-3 text-start">Comment <strong><?php echo htmlspecialchars($comment_details['comment'] ?? ''); ?></h2>
         <p class="ms-3 text-start"><strong>Added by:</strong> <?php echo htmlspecialchars($comment_details['added_by'] ?? ''); ?></p>
         <p class="ms-3"><strong>Created at:</strong> <?php echo htmlspecialchars($comment_details['created_at'] ?? ''); ?></p>
-    <?php else: ?>
-        <p class="ms-3">Comment not found.</p>
     <?php endif; ?>
 
     <table id="bug_comments">
