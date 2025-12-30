@@ -83,7 +83,7 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                   <li class="nav-item me-2">
                       <button type="button" class="btn btn-success btn-sm d-flex flex-column align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#addCommentModal" style="width: 80px; height: 80px;">
                           <span style="font-size: 24px; line-height: 1;">+</span>
-                          <small>Add Comment</small>
+                          <small>Comment</small>
                       </button>
                   </li>
                 <?php endif; ?>
@@ -157,6 +157,18 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
               <?php endforeach; ?>
             </select>
           </div>
+
+        <form action="attachment.php" method="POST" enctype="multipart/form-data" class="mt-3 mb-3">
+            <input type="hidden" name="bug_id" value="<?= (int)$bug_details['id'] ?>">
+            <div class="mb-2">
+                <label for="attachment"><strong>Add attachment</strong></label>
+                <input type="file" name="attachment" id="attachment" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-secondary">
+                Upload attachment
+            </button>
+        </form>
+
           <div class="text-end">
             <button type="submit" class="btn btn-success btn-sm">Add Bug</button>
           </div>
