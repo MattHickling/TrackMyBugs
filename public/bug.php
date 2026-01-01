@@ -41,17 +41,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bugId = $conn->insert_id;
     if (!empty($_FILES['attachments']['name'][0])) {
 
-        $uploadDir = __DIR__ . '/uploads/';
+        $uploadDir = __DIR__ . '/../uploads/'; 
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
 
         $attachmentRepo = new Attachment($conn);
 
+        $allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']; 
+        $maxSize = 5 * 1024 * 1024; 
+
         foreach ($_FILES['attachments']['name'] as $index => $originalName) {
 
             if ($_FILES['attachments']['error'][$index] !== UPLOAD_ERR_OK) {
                 continue;
+            }
+
+            if ($_FILES['attachments']['size'][$index] > $maxSize) {
+                continue; 
+            }
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $_FILES['attachments']['tmp_name'][$index]);
+            finfo_close($finfo);
+
+            if (!in_array($mimeType, $allowedTypes)) {
+                continue; 
             }
 
             $safeName = uniqid() . '_' . preg_replace(
@@ -63,8 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $targetPath = $uploadDir . $safeName;
 
             if (move_uploaded_file($_FILES['attachments']['tmp_name'][$index], $targetPath)) {
-                $relativePath = 'uploads/' . $safeName;
-                $attachmentRepo->addAttachment($bugId, $relativePath);
+                $attachmentRepo->addAttachment($bugId, $targetPath);
             }
         }
     }
