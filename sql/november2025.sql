@@ -69,6 +69,7 @@ CREATE TABLE comments (
 CREATE TABLE IF NOT EXISTS attachments (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `bug_id` INT,
+    `comment_id` INT,
     `file_path` VARCHAR(255) NOT NULL,
     `uploaded_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`bug_id`) REFERENCES `bugs`(`id`) ON DELETE CASCADE

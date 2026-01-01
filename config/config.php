@@ -18,6 +18,15 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 if (!defined('APP_BASE_URL')) {
     define('APP_BASE_URL', rtrim($_ENV['APP_BASE_URL'], '/'));
 }
+if (!defined('UPLOADS_DIR')) {
+    define('UPLOADS_DIR', realpath(__DIR__ . '/../uploads') . '/');
+}
+if (!defined('BUG_UPLOADS_DIR')) {
+    define('BUG_UPLOADS_DIR', UPLOADS_DIR . 'bug/');
+}
+if (!defined('COMMENT_UPLOADS_DIR')) {
+    define('COMMENT_UPLOADS_DIR', UPLOADS_DIR . 'comments/');
+}
 
 try {
     $conn = new mysqli($HOSTNAME, $USERNAME, $PASSWORD, $DB_NAME);

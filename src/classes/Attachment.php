@@ -11,16 +11,15 @@ class Attachment
         $this->conn = $conn;
     }
 
-    public function addAttachment(int $bugId, string $filePath): bool
+    public function addAttachment(?int $bugId, string $filePath, ?int $commentId = null) 
     {
         $stmt = $this->conn->prepare(
-            "INSERT INTO attachments (bug_id, file_path)
-             VALUES (?, ?)"
+            "INSERT INTO attachments (bug_id, comment_id, file_path) VALUES (?, ?, ?)"
         );
-
-        $stmt->bind_param("is", $bugId, $filePath);
-        return $stmt->execute();
+        $stmt->bind_param("iis", $bugId, $commentId, $filePath);
+        $stmt->execute();
     }
+
 
     public function getAttachmentsByBug(int $bugId): array
     {

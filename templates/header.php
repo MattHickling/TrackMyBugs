@@ -247,16 +247,22 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <div class="modal fade" id="addCommentModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
-      <form action="<?= APP_BASE_URL ?>/comment.php" method="post">
-        <div class="mb-3">
-          <input type="hidden" id="bug_id" name="bug_id" value="<?php echo (int)$_GET['id']; ?>">
-          <input type="hidden" id="user_id" name="user_id" value="<?php echo (int)$_SESSION['user_id']; ?>">
-          <label for="comment" class="form-label">Comment</label>
-          <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
-        </div>
-        <div class="text-end">
-          <button type="submit" class="btn btn-success btn-sm">Add Comment</button>
-        </div>
+      <form action="<?= APP_BASE_URL ?>/comment.php" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+              <input type="hidden" id="bug_id" name="bug_id" value="<?= (int)$_GET['id']; ?>">
+              <input type="hidden" id="user_id" name="user_id" value="<?= (int)$_SESSION['user_id']; ?>">
+              <label for="comment" class="form-label">Comment</label>
+              <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+          </div>
+
+          <div class="mb-3">
+              <label for="attachments" class="form-label">Attachments</label>
+              <input type="file" name="attachments[]" id="attachments" class="form-control" multiple>
+          </div>
+
+          <div class="text-end">
+              <button type="submit" class="btn btn-success btn-sm">Add Comment</button>
+          </div>
       </form>
     </div>
   </div>
