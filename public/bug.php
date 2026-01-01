@@ -11,6 +11,7 @@ require '../vendor/autoload.php';
 
 use Src\Classes\Bug;
 use Src\Classes\Comment; 
+use Src\Classes\Attachment;
 use Src\Services\NotificationService;
 
 $bugRepo = new Bug($conn);
@@ -36,6 +37,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'],
         (int)$assigned_to
     );
+
+    $bugId = $conn->insert_id;
+    if (!empty($_FILES['attachments']['name'][0])) {
+
+        $uploadDir = __DIR__ . '/uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $attachmentRepo = new Attachment($conn);
+
+        foreach ($_FILES['attachments']['name'] as $index => $originalName) {
+
+            if ($_FILES['attachments']['error'][$index] !== UPLOAD_ERR_OK) {
+                continue;
+            }
+
+            $safeName = uniqid() . '_' . preg_replace(
+                '/[^a-zA-Z0-9._-]/',
+                '',
+                basename($originalName)
+            );
+
+            $targetPath = $uploadDir . $safeName;
+
+            if (move_uploaded_file($_FILES['attachments']['tmp_name'][$index], $targetPath)) {
+                $relativePath = 'uploads/' . $safeName;
+                $attachmentRepo->addAttachment($bugId, $relativePath);
+            }
+        }
+    }
 
     header('Location: dashboard.php');
     exit;

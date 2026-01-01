@@ -11,31 +11,29 @@ class Attachment
         $this->conn = $conn;
     }
 
-    public function addAttachment()
+    public function addAttachment(int $bugId, string $filePath): bool
     {
-        $uploaded_at = date('Y-m-d H:i:s');
-        $stmt = $this->conn->prepare("INSERT INTO attachments (bug_id, file_path, uploaded_at) VALUES (?, ?, ?)");
-        $stmt->bind_param("iis", $_POST['bug_id'], $_POST['file_path'], $uploaded_at);
+        $stmt = $this->conn->prepare(
+            "INSERT INTO attachments (bug_id, file_path)
+             VALUES (?, ?)"
+        );
 
+        $stmt->bind_param("is", $bugId, $filePath);
         return $stmt->execute();
     }
-    
-    public function getAllAttachments(): array
+
+    public function getAttachmentsByBug(int $bugId): array
     {
-        $sql = "SELECT 
-                    p.id,
-                    p.name,
-                    p.description,
-                    p.language,
-                    p.created_at,
-                    COUNT(b.id) AS bug_count
-                FROM projects p
-                LEFT JOIN bugs b ON p.id = b.project_id
-                GROUP BY p.id, p.name, p.description, p.language, p.created_at
-                ORDER BY p.id DESC";
+        $stmt = $this->conn->prepare(
+            "SELECT file_path, uploaded_at
+             FROM attachments
+             WHERE bug_id = ?
+             ORDER BY uploaded_at ASC"
+        );
 
-        $result = $this->conn->query($sql);
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $stmt->bind_param("i", $bugId);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
-
 }

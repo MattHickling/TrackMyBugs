@@ -113,69 +113,102 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </div>
 </nav>
 <!-- <div id="notification-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;"></div> -->
-
 <div class="modal fade" id="addBugModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
-        <form action="<?= APP_BASE_URL ?>/bug.php" method="post">
-          <div class="mb-2">
-          <label for="project_id" class="form-label">Which Project Does This Bug Belong To?</label>
-            <select class="form-select form-select-sm" id="project_id" name="project_id" required>
-              <option value="">Select</option>
-              <?php foreach ($projects as $project): ?>
-                <option value="<?php echo $project['id']; ?>"><?php echo htmlspecialchars($project['name']); ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="mb-2">
-            <label for="bug_title" class="form-label">Bug Title</label>
-            <input type="text" class="form-control form-control-sm" id="bug_title" name="bug_title" required>
-          </div>
-          <div class="mb-2">
-            <label for="bug_description" class="form-label">Description</label>
-            <textarea class="form-control form-control-sm" id="bug_description" name="bug_description" rows="2" required></textarea>
-          </div>
-          <div class="mb-2">
-            <label for="bug_url" class="form-label">Bug URL</label>
-            <input type="text" class="form-control form-control-sm" id="bug_url" name="bug_url" required>
-          </div>
-          <div class="mb-2">
-            <label for="assigned_to" class="form-label">Assigned To</label>
-            <select class="form-select form-select-sm" id="assigned_to" name="assigned_to" required>
-              <option value="">Select</option>
-              <?php foreach ($users as $user): ?>
-                <option value="<?php echo $user['id']; ?>"><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['surname']); ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="mb-2">
-            <label for="priority" class="form-label">Priority</label>
-            <select class="form-select form-select-sm" id="priority" name="priority" required>
-              <option value="">Select</option>
-              <?php foreach ($priorities as $priority): ?>
-                <option value="<?php echo $priority['id']; ?>"><?php echo htmlspecialchars($priority['name']); ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
 
-        <form action="attachment.php" method="POST" enctype="multipart/form-data" class="mt-3 mb-3">
-            <input type="hidden" name="bug_id" value="<?= (int)$bug_details['id'] ?>">
-            <div class="mb-2">
-                <label for="attachment"><strong>Add attachment</strong></label>
-                <input type="file" name="attachment" id="attachment" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-secondary">
-                Upload attachment
-            </button>
-        </form>
+      <form action="<?= APP_BASE_URL ?>/bug.php" method="post" enctype="multipart/form-data">
 
-          <div class="text-end">
-            <button type="submit" class="btn btn-success btn-sm">Add Bug</button>
-          </div>
+        <div class="mb-2">
+          <label for="project_id" class="form-label">
+            Which Project Does This Bug Belong To?
+          </label>
+          <select class="form-select form-select-sm" id="project_id" name="project_id" required>
+            <option value="">Select</option>
+            <?php foreach ($projects as $project): ?>
+              <option value="<?= $project['id']; ?>">
+                <?= htmlspecialchars($project['name']); ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <div class="mb-2">
+          <label for="bug_title" class="form-label">Bug Title</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            id="bug_title"
+            name="bug_title"
+            required
+          >
+        </div>
+
+        <div class="mb-2">
+          <label for="bug_description" class="form-label">Description</label>
+          <textarea
+            class="form-control form-control-sm"
+            id="bug_description"
+            name="bug_description"
+            rows="2"
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-2">
+          <label for="bug_url" class="form-label">Bug URL</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            id="bug_url"
+            name="bug_url"
+            required
+          >
+        </div>
+
+        <div class="mb-2">
+          <label for="assigned_to" class="form-label">Assigned To</label>
+          <select class="form-select form-select-sm" id="assigned_to" name="assigned_to" required>
+            <option value="">Select</option>
+            <?php foreach ($users as $user): ?>
+              <option value="<?= $user['id']; ?>">
+                <?= htmlspecialchars($user['first_name'] . ' ' . $user['surname']); ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <div class="mb-2">
+          <label for="priority" class="form-label">Priority</label>
+          <select class="form-select form-select-sm" id="priority" name="priority" required>
+            <option value="">Select</option>
+            <?php foreach ($priorities as $priority): ?>
+              <option value="<?= $priority['id']; ?>">
+                <?= htmlspecialchars($priority['name']); ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <div class="mb-2">
+          <label for="attachments" class="form-label">
+            Attachments
+          </label>
+          <input type="file" name="attachments[]" id="attachments" class="form-control" multiple>
+        </div>
+
+        <div class="text-end">
+          <button type="submit" class="btn btn-success btn-sm">
+            Add Bug
+          </button>
+        </div>
+
       </form>
+
     </div>
   </div>
 </div>
+
 
 
 <div class="modal fade" id="addProjectModal" tabindex="-1" aria-hidden="true">
@@ -232,29 +265,4 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 <script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
 <script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
-<script>
-$(document).ready(function() {
-    function updateNotificationBadge() {
-        $.get('<?= APP_BASE_URL ?>/unread_notifications_count.php', function(data) {
-            var badge = $('.nav-item a[href$="profile.php"] .badge');
-            
-            if (data.count > 0) {
-                if (badge.length === 0) {
-                    $('.nav-item a[href$="profile.php"]').append(
-                        '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">' +
-                        data.count +
-                        '<span class="visually-hidden">unread notifications</span></span>'
-                    );
-                } else {
-                    badge.text(data.count);
-                }
-            } else {
-                badge.remove(); 
-            }
-        }, 'json');
-    }
 
-    updateNotificationBadge();
-    setInterval(updateNotificationBadge, 5000);
-});
-</script>
