@@ -20,7 +20,6 @@ class Attachment
         $stmt->execute();
     }
 
-
     public function getAttachmentsByBug(int $bugId): array
     {
         $stmt = $this->conn->prepare(
@@ -35,4 +34,20 @@ class Attachment
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getAttachmentsByComment(int $commentId): array
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT file_path, uploaded_at
+            FROM attachments
+            WHERE comment_id = ?
+            ORDER BY uploaded_at ASC"
+        );
+
+        $stmt->bind_param("i", $commentId);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
