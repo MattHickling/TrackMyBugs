@@ -19,6 +19,21 @@
                 </a>
             </p>
             <p><strong>Created at:</strong> <?= htmlspecialchars($bug_details['created_at']) ?></p>
+            <?php if (!empty($bug_details['attachments'])): ?>
+                <div class="bug-attachments">
+                    <h4>Attachments:</h4>
+                    <ul>
+                        <?php foreach ($bug_details['attachments'] as $attachment): ?>
+                            <li>
+                                <a href="<?= APP_BASE_URL . '/' . htmlspecialchars($attachment) ?>" target="_blank">
+                                    <?= basename($attachment) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
         </div>
     </div>
 
@@ -26,7 +41,7 @@
         <input type="hidden" name="bug_id" value="<?= (int)$bug_details['id'] ?>">
         <button type="submit" class="btn btn-danger">Close Bug</button>
     </form>
-    
+
 <?php else: ?>
     <p>Bug not found.</p>
 <?php endif; ?>

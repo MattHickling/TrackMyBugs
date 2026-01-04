@@ -89,7 +89,7 @@ class Bug
     }
 
 
-    public function getBug(int $bugId): ?array
+   public function getBug(int $bugId): ?array
     {
         $stmt = $this->conn->prepare(
             "SELECT
@@ -108,14 +108,35 @@ class Bug
             LEFT JOIN users reporter ON reporter.id = b.user_id
             LEFT JOIN users assignee ON assignee.id = b.assigned_to
             WHERE b.id = ?
-            "
+            LIMIT 1"
+        );
+
+        $stmt->bind_param("i", $bugId);
+        $stmt->execute();
+        $bug = $stmt->get_result()->fetch_assoc();
+
+        if (!$bug) {
+            return null;
+        }
+
+        $stmt = $this->conn->prepare(
+            "SELECT file_path
+            FROM attachments
+            WHERE bug_id = ?
+            ORDER BY uploaded_at ASC"
         );
 
         $stmt->bind_param("i", $bugId);
         $stmt->execute();
 
-        return $stmt->get_result()->fetch_assoc() ?: null;
+        $bug['attachments'] = array_column(
+            $stmt->get_result()->fetch_all(MYSQLI_ASSOC),
+            'file_path'
+        );
+
+        return $bug;
     }
+
 
     public function getBugsByProject(int $projectId): array
     {

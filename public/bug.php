@@ -77,11 +77,10 @@ $bug_details = null;
 if (isset($_GET['id'])) {
     $bug_id = (int)$_GET['id'];
     $bug_details = $bugRepo->getBug($bug_id);
-
+// dd($bug_details);
     $commentRepo = new Comment($conn);
     $comments = $commentRepo->getCommentsByBug($bug_id);
 }
-
 
 include '../templates/header.php';
 include '../templates/bug-template.php';
