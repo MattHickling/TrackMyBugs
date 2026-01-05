@@ -6,7 +6,6 @@ include '../src/Classes/User.php';
 $user = new User($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // print_r($_POST); 
     $id = $_POST['user_id'];
 
     if ($user->deleteUser($id)) {

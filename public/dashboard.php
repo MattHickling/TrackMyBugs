@@ -10,10 +10,4 @@ include '../templates/header.php';
 require '../config/config.php';
 require '../vendor/autoload.php';
 require '../src/Classes/Dashboard.php';
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     $dashboard = new Dashboard($conn);
-//     $dashboard->addBug($_POST['bug_title'], $_POST['bug_description'], $_POST['priority'], $_POST['bug_url'], $_SESSION['user_id']);
-// }
-
 include '../templates/dashboard-template.php';

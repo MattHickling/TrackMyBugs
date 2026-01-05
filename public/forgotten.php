@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $forgotten = new ForgottenLogin($conn); 
     $success = $forgotten->forgotten($_POST['email']);
 
-   echo __LINE__;
     if ($success) {
         $_SESSION['message'] = "If the email exists, a reset link has been sent.";
         $_SESSION['toast_class'] = "bg-success";

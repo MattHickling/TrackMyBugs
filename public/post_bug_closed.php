@@ -13,7 +13,6 @@ $stmt->bind_param("i", $bugId);
 $stmt->execute();
 $row = $stmt->get_result()->fetch_assoc();
 
-// dd('123');
 $bug->markAsClosed($bugId);
 echo json_encode(['success' => true]);
 header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/profile.php'));
