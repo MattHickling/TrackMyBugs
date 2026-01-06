@@ -46,7 +46,6 @@ CREATE TABLE bugs (
         ON DELETE SET NULL
 );
 
-
 CREATE TABLE comments (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `bug_id` INT NOT NULL,
@@ -64,7 +63,6 @@ CREATE TABLE comments (
         REFERENCES `users`(`id`)
         ON DELETE SET NULL
 );
-
 
 CREATE TABLE IF NOT EXISTS attachments (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
