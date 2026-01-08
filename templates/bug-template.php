@@ -55,8 +55,12 @@
                 <?php endif; ?>
             </div>
 
-            <div class="card-footer bg-white">
-                <form action="post_bug_closed.php" method="POST" class="d-inline">
+            <div class="card-footer bg-white d-flex gap-2">
+                <a href="edit_bug.php?id=<?= (int)$bug_details['id'] ?>"
+                    class="btn btn-primary">
+                    Edit Bug
+                </a>
+                <form action="post_bug_closed.php" method="POST">
                     <input type="hidden" name="bug_id" value="<?= (int)$bug_details['id'] ?>">
                     <button type="submit" class="btn btn-danger">
                         Close Bug
