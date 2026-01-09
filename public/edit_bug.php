@@ -21,7 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $assignedTo  = (int)$_POST['assigned_to'];
 
     $bugUrl = trim($_POST['bug_url'] ?? '');
+    // dd($bugUrl);
     $bugUrl = $bugUrl === '' ? null : $bugUrl;
+
+    $assignedTo = $_POST['assigned_to'] ?? null;
+    $assignedTo = $assignedTo == "0" ? null : (int)$assignedTo;
 
     $bugRepo->updateBug(
         $bugId,

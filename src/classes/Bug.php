@@ -184,25 +184,25 @@ class Bug
         ?string $bugUrl,
         int $assignedTo
     ): void {
-        $stmt = $this->conn->prepare("UPDATE bugs
-                SET title = ?, 
-                description = ?, 
-                priority = ?, 
-                bug_url = ?, 
-                assigned_to = ?
-                WHERE id = ?"
-        );
+       $stmt = $this->conn->prepare("UPDATE bugs
+                                    SET title = ?, 
+                                        description = ?, 
+                                        priority = ?, 
+                                        bug_url = ?, 
+                                        assigned_to = ?
+                                    WHERE id = ?"
+    );
 
-        $stmt->bind_param(
-            "ssisii",
-            $title,
-            $description,
-            $priority,
-            $bugUrl === null ? null : $bugUrl,
-            $assignedTo,
-            $bugId
-        );
-
-        $stmt->execute();
+    $bugUrlValue = $bugUrl; // already nullable
+    $stmt->bind_param(
+        "ssisii",
+        $title,
+        $description,
+        $priority,
+        $bugUrlValue,
+        $assignedTo,
+        $bugId
+    );
+    $stmt->execute();
     }
 }
