@@ -60,54 +60,95 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<?= APP_BASE_URL ?>/dashboard.php">TrackMyBugs</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item me-2">
-                    <button type="button" class="btn btn-success btn-sm d-flex flex-column align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#addBugModal" style="width: 80px; height: 80px;">
-                        <span style="font-size: 24px; line-height: 1;">+</span>
-                        <small>Bug</small>
-                    </button>
-                </li>
-                <li class="nav-item me-2">
-                    <button type="button" class="btn btn-success btn-sm d-flex flex-column align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#addProjectModal" style="width: 80px; height: 80px;">
-                        <span style="font-size: 24px; line-height: 1;">+</span>
-                        <small>Project</small>
-                    </button>
-                </li>
 
-                <?php if (isset($_GET['id'])):?>
-                  <li class="nav-item me-2">
-                      <button type="button" class="btn btn-success btn-sm d-flex flex-column align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#addCommentModal" style="width: 80px; height: 80px;">
-                          <span style="font-size: 24px; line-height: 1;">+</span>
-                          <small>Comment</small>
-                      </button>
-                  </li>
+        <a class="navbar-brand" href="<?= APP_BASE_URL ?>/dashboard.php">
+            TrackMyBugs
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto gap-2 mt-3 mt-lg-0">
+              <li class="nav-item">
+                <button
+                    type="button"
+                    class="btn btn-success btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addBugModal"
+                >
+                    + Bug
+                </button>
+              </li>
+
+              <li class="nav-item">
+                <button
+                    type="button"
+                    class="btn btn-success btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addProjectModal"
+                >
+                    + Project
+                </button>
+              </li>
+
+              <?php if (isset($_GET['id'])): ?>
+              <li class="nav-item">
+                <button
+                    type="button"
+                    class="btn btn-success btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addCommentModal"
+                >
+                    + Comment
+                </button>
+              </li>
+
                 <?php endif; ?>
-                <li class="nav-item me-2" >
-                    <a class="btn btn-primary nav-link text-white" href="<?= APP_BASE_URL ?>/dashboard.php">
+
+                <li class="nav-item">
+                    <a
+                        class="btn btn-primary btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100 text-white"
+                        href="<?= APP_BASE_URL ?>/dashboard.php"
+                    >
                         Dashboard
                     </a>
                 </li>
-                <li class="nav-item me-2 position-relative">
-                  <a class="btn btn-primary nav-link text-white" href="<?= APP_BASE_URL ?>/profile.php">
-                      Profile
-                      <?php if ($unread_count > 0): ?>
-                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                              <?= $unread_count ?>
-                              <span class="visually-hidden">unread notifications</span>
-                          </span>
-                      <?php endif; ?>
-                  </a>
-              </li>
-                <li class="nav-item me-2">
-                    <a class="btn btn-dark nav-link text-warning" href="<?= APP_BASE_URL ?>/logout.php">
+
+                <li class="nav-item position-relative">
+                    <a
+                        class="btn btn-primary btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100 text-white"
+                        href="<?= APP_BASE_URL ?>/profile.php"
+                    >
+                        Profile
+                        <?php if ($unread_count > 0): ?>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <?= $unread_count ?>
+                            </span>
+                        <?php endif; ?>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="btn btn-dark btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100 text-warning"
+                        href="<?= APP_BASE_URL ?>/logout.php"
+                    >
                         Logout
                     </a>
                 </li>
+
             </ul>
         </div>
     </div>

@@ -18,7 +18,7 @@
 <div class="container-fluid mt-1 text-center">
     <h3>Live Bugs</h3>
     <table id="live_project_bugs" class="table table-striped">
-        <thead>
+        <thead class="text-black bg-light">
             <tr>
                 <th>Bug ID</th>
                 <th>Title</th>

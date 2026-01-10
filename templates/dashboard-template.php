@@ -26,7 +26,7 @@ $projectRepo = new Project($conn);
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="live_projects" class="table table-hover table-striped align-middle mb-0">
-                        <thead class="table-dark">
+                        <thead class="text-black bg-light">
                             <tr>
                                 <th>Project ID</th>
                                 <th>Name</th>
@@ -49,7 +49,7 @@ $projectRepo = new Project($conn);
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="live_bugs" class="table table-hover table-striped align-middle mb-0">
-                        <thead class="table-dark">
+                        <thead class="text-black bg-light">
                             <tr>
                                 <th>Bug ID</th>
                                 <th>Title</th>
