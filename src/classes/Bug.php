@@ -182,7 +182,7 @@ class Bug
         string $description,
         int $priority,
         ?string $bugUrl,
-        int $assignedTo
+        ?int $assignedTo
     ): void {
        $stmt = $this->conn->prepare("UPDATE bugs
                                     SET title = ?, 
