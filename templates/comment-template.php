@@ -3,51 +3,95 @@ use Carbon\Carbon;
 
 if (isset($comment_details)): 
     $createdAt = Carbon::parse($comment_details['created_at']);
-    $comment_details['created_at'] = $createdAt->format('M d Y');
-    ?>
-<div class="comments-page">
-        <h2 class="ms-3 text-start">Comment <strong><?php echo htmlspecialchars($comment_details['comment'] ?? ''); ?></h2>
-        <p class="ms-3 text-start"><strong>Added by:</strong> <?php echo htmlspecialchars($comment_details['added_by'] ?? ''); ?></p>
-        <p class="ms-3"><strong>Created at:</strong> <?php echo htmlspecialchars($comment_details['created_at'] ?? ''); ?></p>
-    <?php endif; ?>
-    <?php if (!empty($attachments)): ?>
-    <div class="comment-attachments ms-3">
-            <h4>Attachments</h4>
-            <ul>
-                <?php foreach ($attachments as $attachment): ?>
-                    <li>
-                        <a
-                            href="<?= APP_BASE_URL . '/' . htmlspecialchars($attachment['file_path']) ?>"
-                            target="_blank"
-                        >
-                            <?= htmlspecialchars(basename($attachment['file_path'])) ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+    $formattedDate = $createdAt->format('M d Y');
+?>
+<div class="container-fluid py-3">
 
-    <table id="bug_comments">
-        <thead>
-            <th>Date Added</th>
-            <th>Comment</th>
-            <th>Added By</th>
-        </thead>
-        <tbody>
-            <?php if (!empty($comments)){
-                    foreach ($comments as $comment): 
-                    ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($comment['created_at']); ?></td>
-                        <td><?php echo htmlspecialchars($comment['comment']); ?></td>
-                        <td><?php echo htmlspecialchars($comment['added_by']); ?></td>
-                    </tr>
-                <?php endforeach; 
-                }?>
-        </tbody>
-    </table>
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Comment Details</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="mb-3">
+                <h6 class="fw-bold">Comment</h6>
+                <p class="mb-0">
+                    <?= nl2br(htmlspecialchars($comment_details['comment'] ?? '')) ?>
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-1">
+                        <strong>Added by:</strong>
+                        <?= htmlspecialchars($comment_details['added_by'] ?? 'Unknown') ?>
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <p class="mb-1">
+                        <strong>Created at:</strong>
+                        <?= htmlspecialchars($formattedDate) ?>
+                    </p>
+                </div>
+            </div>
+
+            <?php if (!empty($attachments)): ?>
+            <div class="mt-3">
+                <h6 class="fw-bold">Attachments</h6>
+                <ul class="list-group list-group-flush">
+                    <?php foreach ($attachments as $attachment): ?>
+                        <li class="list-group-item px-0">
+                            <a
+                                href="<?= APP_BASE_URL . '/' . htmlspecialchars($attachment['file_path']) ?>"
+                                target="_blank"
+                            >
+                                <?= htmlspecialchars(basename($attachment['file_path'])) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
+
+        </div>
     </div>
+
+<?php endif; ?>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">All Comments</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="bug_comments" class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Date Added</th>
+                            <th>Comment</th>
+                            <th>Added By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($comments)): ?>
+                            <?php foreach ($comments as $comment): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($comment['created_at']) ?></td>
+                                    <td><?= htmlspecialchars($comment['comment']) ?></td>
+                                    <td><?= htmlspecialchars($comment['added_by']) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 </div>
 
 
