@@ -1,67 +1,90 @@
+
 .dashboard-page {
-    padding: 1rem;
+    background-color: #f8f9fa;
 }
 
-.dashboard-page h3 {
-    margin-bottom: 1rem;
-    font-weight: 600;
+.dashboard-page .card {
+    border-radius: 0.5rem;
 }
 
-.dashboard-page .container-fluid {
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 2rem;
+.dashboard-page .card-header {
+    border-bottom: 1px solid #dee2e6;
 }
 
-.dashboard-page table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+
+.dashboard-page table thead {
+    background-color: #343a40;
+    color: #ffffff;
 }
 
 .dashboard-page table thead th {
-    background-color: #f1f3f5;
     font-weight: 600;
-    text-align: center;
+    white-space: nowrap;
 }
+
 
 .dashboard-page table tbody tr {
     cursor: pointer;
 }
 
 .dashboard-page table tbody tr:hover {
-    background-color: #f8f9fa;
+    background-color: #eef3f8;
 }
 
-.dashboard-page .dataTables_wrapper {
-    margin-top: 1rem;
-}
-
-.dashboard-page .dataTables_filter input {
-    margin-left: 0.5rem;
-    border-radius: var(--radius-sm);
-}
-
-.dashboard-page .dataTables_paginate .paginate_button {
-    padding: 0.25rem 0.75rem;
-}
-.dashboard-page .dataTables_wrapper {
-    margin-top: 1rem;
-}
-
-.dashboard-page .dataTables_filter input {
-    margin-left: 0.5rem;
-    border-radius: var(--radius-sm);
-}
-
-.dashboard-page .dataTables_paginate .paginate_button {
-    padding: 0.25rem 0.75rem;
-}
-
-.dashboard-page td,
-.dashboard-page th {
-    vertical-align: middle;
+.dashboard-page td {
+    max-width: 320px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dataTables_wrapper {
+    font-size: 0.9rem;
+}
+
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    padding: 0.25rem 0.5rem;
+}
+
+.badge-priority-low {
+    background-color: #6c757d;
+}
+
+.badge-priority-medium {
+    background-color: #0d6efd;
+}
+
+.badge-priority-high {
+    background-color: #fd7e14;
+}
+
+.badge-priority-critical {
+    background-color: #dc3545;
+}
+
+.badge-status-open {
+    background-color: #198754;
+}
+
+.badge-status-in-progress {
+    background-color: #0dcaf0;
+    color: #000;
+}
+
+.badge-status-closed {
+    background-color: #6c757d;
+}
+
+
+@media (max-width: 768px) {
+    .dashboard-page .card-header h5 {
+        font-size: 1rem;
+    }
+
+    .dashboard-page table {
+        font-size: 0.85rem;
+    }
 }
