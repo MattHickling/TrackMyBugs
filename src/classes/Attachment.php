@@ -14,7 +14,8 @@ class Attachment
     public function addAttachment(?int $bugId, string $filePath, ?int $commentId = null) 
     {
         $stmt = $this->conn->prepare(
-            "INSERT INTO attachments (bug_id, comment_id, file_path) VALUES (?, ?, ?)"
+            "INSERT INTO attachments (bug_id, comment_id, file_path) 
+                VALUES (?, ?, ?)"
         );
         $stmt->bind_param("iis", $bugId, $commentId, $filePath);
         $stmt->execute();

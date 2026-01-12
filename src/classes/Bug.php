@@ -134,7 +134,6 @@ class Bug
             $stmt->get_result()->fetch_all(MYSQLI_ASSOC),
             'file_path'
         );
-
         return $bug;
     }
 
@@ -169,31 +168,27 @@ class Bug
     public function markAsClosed(int $bugId): void
     {
         $stmt = $this->conn->prepare(
-            "UPDATE bugs SET status = 'Closed' WHERE id = ?"
+            "UPDATE bugs 
+            SET status = 'Closed' 
+            WHERE id = ?"
         );
 
         $stmt->bind_param("i", $bugId);
         $stmt->execute();
     }
 
-    public function updateBug(
-        int $bugId,
-        string $title,
-        string $description,
-        int $priority,
-        ?string $bugUrl,
-        ?int $assignedTo
-    ): void {
-       $stmt = $this->conn->prepare("UPDATE bugs
-                                    SET title = ?, 
-                                        description = ?, 
-                                        priority = ?, 
-                                        bug_url = ?, 
-                                        assigned_to = ?
-                                    WHERE id = ?"
+    public function updateBug(int $bugId, string $title, string $description, int $priority, ?string $bugUrl, ?int $assignedTo): void {
+       $stmt = $this->conn->prepare(
+                "UPDATE bugs
+                SET title = ?, 
+                    description = ?, 
+                    priority = ?, 
+                    bug_url = ?, 
+                    assigned_to = ?
+                WHERE id = ?"
     );
 
-    $bugUrlValue = $bugUrl; // already nullable
+    $bugUrlValue = $bugUrl; 
     $stmt->bind_param(
         "ssisii",
         $title,
