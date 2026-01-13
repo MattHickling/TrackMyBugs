@@ -1,40 +1,120 @@
+
+.dashboard-page,
 .project-page {
-    margin: 1.5rem;
+    padding: 1rem 0;
+}
+
+.card {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+}
+
+table thead {
+    background-color: #212529;
+    color: #ffffff;
+}
+
+table thead th {
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+table.dataTable {
+    border-collapse: collapse;
+}
+
+table.dataTable tbody tr {
+    cursor: pointer;
+}
+
+table.dataTable tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.08);
 }
 
 .project-header {
-    background-color: #ffffff;
-    padding: 1.25rem 1.5rem;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 1.5rem;
+    background: #ffffff;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0.5rem;
 }
 
-.project-header h1 {
-    margin: 0;
-    font-size: 1.75rem;
+.project-header h4 {
+    margin-bottom: 0.25rem;
     font-weight: 600;
 }
 
 .project-meta {
-    background-color: #ffffff;
-    padding: 1.5rem;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    font-size: 0.875rem;
+    color: #6c757d;
 }
 
-.project-meta p {
-    margin-bottom: 0.75rem;
-    font-size: 0.95rem;
+.project-details {
+    background: #ffffff;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0.5rem;
 }
 
-.project-meta p:last-child {
-    margin-bottom: 0;
-}
-
-.project-meta strong {
-    display: inline-block;
-    min-width: 120px;
+.project-details dt {
     font-weight: 600;
     color: #495057;
+}
+
+.project-details dd {
+    margin-bottom: 0.75rem;
+}
+
+.project-bugs .card-header {
+    background-color: #212529;
+    color: #ffffff;
+}
+
+.project-empty {
+    padding: 2rem;
+    text-align: center;
+    color: #6c757d;
+}
+
+.project-empty strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #212529;
+}
+
+.btn {
+    border-radius: 0.375rem;
+}
+
+.project-actions .btn {
+    min-width: 140px;
+}
+
+.navbar .btn {
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .card-header {
+        font-size: 0.95rem;
+    }
+
+    table thead th {
+        font-size: 0.85rem;
+    }
+
+    .project-header,
+    .project-details {
+        padding: 1rem;
+    }
+
+    .project-actions .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
 }
