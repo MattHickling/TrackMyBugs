@@ -43,9 +43,14 @@ jobs:
       DEV_EMAIL: dev@example.test
       APP_URL: http://localhost
       APP_BASE_URL: http://localhost
-
+      
     steps:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '
+          php-version: '8.2'
+          extensions: mbstring, mysqli
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer dump-autoload
+      - run: vendor/bin/phpunit --configuration phpunit.xml
+
