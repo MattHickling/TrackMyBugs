@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
+      - name: Generate autoload files
+        run: composer dump-autoload
+
       - name: Run tests
         env:
           APP_ENV: ${{ secrets.APP_ENV }}
