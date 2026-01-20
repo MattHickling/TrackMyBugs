@@ -46,11 +46,24 @@ jobs:
       
     steps:
       - uses: actions/checkout@v3
+
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: mbstring, mysqli
+
       - run: composer install --no-interaction --prefer-dist
       - run: composer dump-autoload
-      - run: vendor/bin/phpunit --configuration phpunit.xml
 
+      - name: Create database schema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-client
+          mysql \
+            -h 127.0.0.1 \
+            -P 3306 \
+            -u test_user \
+            -ptest_pass \
+            test_db < database/schema.sql
+
+      - run: vendor/bin/phpunit --configuration phpunit.xml
