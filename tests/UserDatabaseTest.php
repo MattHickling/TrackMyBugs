@@ -4,23 +4,31 @@ use PHPUnit\Framework\TestCase;
 
 class UserDatabaseTest extends TestCase
 {
-    private mysqli $db;
+    private \mysqli $db;
 
     protected function setUp(): void
     {
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+        \mysqli_report(\MYSQLI_REPORT_ERROR | \MYSQLI_REPORT_STRICT);
 
-        $this->db = new mysqli(
-            'localhost',
-            'root',
-            'root',
-            'db_tmb',
-            8889,
-            '/Applications/MAMP/tmp/mysql/mysql.sock'
+        $host = getenv('DB_HOST');
+        $user = getenv('DB_USERNAME');
+        $pass = getenv('DB_PASSWORD');
+        $db   = getenv('DB_DATABASE');
+        $port = (int) getenv('DB_PORT');
+
+        if (!$host || !$user || !$db) {
+            throw new \RuntimeException('Database environment variables not set');
+        }
+
+        $this->db = new \mysqli(
+            $host,
+            $user,
+            $pass,
+            $db,
+            $port
         );
 
         $this->db->set_charset('utf8mb4');
-
         $this->db->begin_transaction();
     }
 
