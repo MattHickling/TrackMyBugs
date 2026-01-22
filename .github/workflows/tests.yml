@@ -9,6 +9,9 @@ on:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [8.1, 8.2, 8.3]
 
     services:
       mysql:
@@ -33,7 +36,6 @@ jobs:
       DB_DATABASE: test_db
       DB_USERNAME: test_user
       DB_PASSWORD: test_pass
-
       MAIL_HOST: smtp.example.test
       MAIL_USERNAME: test
       MAIL_PASSWORD: test
@@ -43,13 +45,14 @@ jobs:
       DEV_EMAIL: dev@example.test
       APP_URL: http://localhost
       APP_BASE_URL: http://localhost
-      
+
     steps:
       - uses: actions/checkout@v3
 
-      - uses: shivammathur/setup-php@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php }}
           extensions: mbstring, mysqli
 
       - run: composer install --no-interaction --prefer-dist
