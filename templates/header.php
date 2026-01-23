@@ -242,10 +242,14 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
           <button type="submit" class="btn btn-success btn-sm">
             Add Bug
           </button>
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm px-2 py-1"
+            data-bs-dismiss="modal">
+            Close
+          </button>
         </div>
-
       </form>
-
     </div>
   </div>
 </div>
@@ -277,6 +281,12 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         </div>
         <div class="text-end">
           <button type="submit" class="btn btn-success btn-sm">Add Bug</button>
+          <button
+                type="button"
+                class="btn btn-secondary btn-sm px-2 py-1"
+                data-bs-dismiss="modal">
+                Close
+          </button>
         </div>
       </form>
     </div>
@@ -303,6 +313,12 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
           <div class="text-end">
               <button type="submit" class="btn btn-success btn-sm">Add Comment</button>
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm px-2 py-1"
+                data-bs-dismiss="modal">
+                Close
+              </button>
           </div>
       </form>
     </div>
