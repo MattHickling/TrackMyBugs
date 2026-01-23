@@ -16,9 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" 
           content="width=device-width, 
                    initial-scale=1.0">
-    <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../public/assets/css/font-awesome.css">
-    <link rel="stylesheet" href="../public/assets/css/login.css">
+    <link href="<?= APP_BASE_URL ?>/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= APP_BASE_URL ?>/assets/css/font-awesome.css" rel="stylesheet">
+    <link href="<?= APP_BASE_URL ?>/assets/css/login.css" rel="stylesheet">
     <title>Reset Password</title>
 </head>
 
@@ -53,8 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
-    <script src="../public/assets/js/jquery-3.6.0.min.js"></script>
-    <script src="../public/assets/js/bootstrap.bundle.min.js"></script>
+     <script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#email').on('blur', function () {
