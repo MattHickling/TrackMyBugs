@@ -1,5 +1,3 @@
-ALTER TABLE `users`
-ADD COLUMN `mfa_secret` VARCHAR(32) NULL;
-
-ALTER TABLE `users`
-ADD COLUMN `mfa_enabled` TINYINT(1) DEFAULT 0;
+ALTER TABLE 'users'
+ADD COLUMN 'mfa_secret' VARCHAR(32) NULL,
+ADD COLUMN 'mfa_enabled' TINYINT(1) DEFAULT 0;

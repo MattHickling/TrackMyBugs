@@ -1,31 +1,63 @@
 <?php require_once 'header.php'; 
 use Carbon\Carbon;
 ?>
+<?php
+use OTPHP\TOTP;
 
-<div class="container-fluid py-3">
+$mfa_enabled = (int)$profile['mfa_enabled'];
 
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-light">
-            <h5 class="mb-0">User Profile</h5>
-        </div>
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enable_mfa'])) {
+    if (!$mfa_enabled) {
+        $totp = TOTP::create();
+        $totp->setLabel($profile['email']);
+        $secret = $totp->getSecret();
 
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <p class="mb-1">
-                        <strong>Name:</strong>
-                        <?= htmlspecialchars($profile['first_name'] . ' ' . $profile['surname']) ?>
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <p class="mb-1">
-                        <strong>Email:</strong>
-                        <?= htmlspecialchars($profile['email']) ?>
-                    </p>
-                </div>
-            </div>
-        </div>
+        $stmt = $conn->prepare("UPDATE users SET mfa_secret = ?, mfa_enabled = 1 WHERE id = ?");
+        $stmt->bind_param("si", $secret, $profile['id']);
+        $stmt->execute();
+
+        $mfa_enabled = 1;
+        $profile['mfa_secret'] = $secret;
+        $qr_url = $totp->getProvisioningUri();
+    }
+} elseif ($mfa_enabled && !empty($profile['mfa_secret'])) {
+    $totp = TOTP::create($profile['mfa_secret']);
+    $totp->setLabel($profile['email']);
+    $qr_url = $totp->getProvisioningUri();
+}
+?>
+
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Multi-Factor Authentication (MFA)</h5>
     </div>
+    <div class="card-body">
+        <?php if (!(int)$profile['mfa_enabled']): ?>
+            <p>MFA is <strong>disabled</strong>.</p>
+            <form method="post">
+                <button type="submit" name="enable_mfa" class="btn btn-warning">
+                    Enable MFA
+                </button>
+            </form>
+        <?php else: ?>
+            <p>MFA is <strong>enabled</strong> for your account.</p>
+            <p>Scan the QR code below with your authenticator app:</p>
+            <?php if (!empty($profile['mfa_secret'])): ?>
+                <?php
+                $totp = \OTPHP\TOTP::create($profile['mfa_secret']);
+                $totp->setLabel($profile['email']);
+                $qr_url = $totp->getProvisioningUri();
+                ?>
+                <img src="https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=<?= urlencode($qr_url) ?>" alt="MFA QR Code">
+                <p class="mt-2 text-muted">
+                    Use this code if your app cannot scan QR codes: <strong><?= htmlspecialchars($profile['mfa_secret']) ?></strong>
+                </p>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</div>
+
 
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-light">

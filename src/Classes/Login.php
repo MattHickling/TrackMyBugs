@@ -11,7 +11,9 @@ class Login
 
     public function authenticate($email, $password)
     {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $this->db->prepare(
+            "SELECT * FROM users WHERE email = ? LIMIT 1"
+        );
         $stmt->bind_param("s", $email);
         $stmt->execute();
 
@@ -19,16 +21,10 @@ class Login
         $user = $result->fetch_assoc();
 
         if ($user && password_verify($password, $user['password_hash'])) {
-
-            session_regenerate_id();
-
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['first_name'] = $user['first_name'];
-            $_SESSION['email'] = $user['email'];
-
-            return true;
+            return $user;
         }
 
         return false;
     }
+
 }
