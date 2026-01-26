@@ -26,5 +26,4 @@ class Login
 
         return false;
     }
-
 }

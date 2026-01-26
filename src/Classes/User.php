@@ -111,6 +111,13 @@ class User
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    
+    public function sendMfaEmail($email, $pin) 
+    {
+        $subject = "Your Login PIN";
+        $message = "Use this PIN to login: $pin (expires in 10 minutes)";
+        $headers = "From: no-reply@yourdomain.com";
+
+        mail($email, $subject, $message, $headers);
+    }
 
 }

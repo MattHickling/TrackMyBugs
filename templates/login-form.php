@@ -4,7 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -69,19 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
-    <form method="post" class="form-control mt-5 p-4"
+    <form method="post" action="login.php" class="form-control mt-5 p-4" 
           style="width:380px; box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
                  rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
         <div class="text-center mb-3">
             <h5 class="p-2" style="font-weight: 700;">Login</h5>
         </div>
 
-        <?php if (!empty($show_mfa) && $show_mfa): ?>
-            <div class="mb-2">
-                <label for="mfa_code">MFA Code</label>
-                <input type="text" name="mfa_code" id="mfa_code" class="form-control" required>
-            </div>
-        <?php else: ?>
             <div class="mb-2">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" class="form-control" required>
@@ -91,8 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
-        <?php endif; ?>
-
         <button type="submit" class="btn btn-success w-100 mt-3">Login</button>
 
         <p class="text-center mt-3" style="font-weight: 600;">
