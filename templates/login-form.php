@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../config/config.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -20,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($mfa_code) {
                 $totp = \OTPHP\TOTP::create($user['mfa_secret']);
                 if ($totp->verify($mfa_code)) {
+                    session_regenerate_id(true);
                     $_SESSION['user_id'] = $user['id'];
                     header('Location: dashboard.php');
                     exit;
@@ -32,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $show_mfa = true;
             }
         } else {
+            session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             header('Location: dashboard.php');
             exit;
