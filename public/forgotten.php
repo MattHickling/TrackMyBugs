@@ -4,6 +4,8 @@ require '../config/config.php';
 require '../vendor/autoload.php';
 require '../src/Classes/ForgottenLogin.php';
 
+use Src\Classes\Login;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $forgotten = new ForgottenLogin($conn); 
     $success = $forgotten->forgotten($_POST['email']);

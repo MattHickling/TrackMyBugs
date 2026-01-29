@@ -3,6 +3,7 @@ session_start();
 require_once '../config/config.php';
 require_once '../src/Classes/Login.php';
 require_once '../src/Classes/EmailNotification.php';
+use Src\Classes\Login;
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

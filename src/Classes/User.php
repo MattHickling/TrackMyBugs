@@ -1,5 +1,7 @@
 <?php
 
+namespace Src\Classes;
+
 class User
 {
     private \mysqli $conn;
