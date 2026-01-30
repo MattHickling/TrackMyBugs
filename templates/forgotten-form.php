@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container p-5 d-flex flex-column align-items-center">
-        <form action="../public/forgotten.php" method="post" class="form-control mt-5 p-4"
+        <form action="/forgotten.php" method="post" class="form-control mt-5 p-4"
             style="height:auto; width:380px; box-shadow: rgba(60, 64, 67, 0.3) 
             0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
             <div class="row">
