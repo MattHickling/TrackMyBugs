@@ -1,48 +1,13 @@
 <?php
-require __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../src/Classes/EmailNotification.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$message = null;
+$message = $_SESSION['login_error'] ?? null;
+unset($_SESSION['login_error']);
+
 $toastClass = '#dc3545';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    $stmt = $conn->prepare("SELECT id, email, password_hash FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $user = $stmt->get_result()->fetch_assoc();
-
-    if (!$user || !password_verify($password, $user['password_hash'])) {
-        $message = 'Invalid email or password.';
-    } else {
-        $pin = random_int(100000, 999999);
-        $expires = date('Y-m-d H:i:s', time() + 300);
-
-        $update = $conn->prepare(
-            "UPDATE users SET mfa_email_pin = ?, mfa_pin_expires = ? WHERE id = ?"
-        );
-        $update->bind_param("ssi", $pin, $expires, $user['id']);
-        $update->execute();
-
-        $mailer = new \Src\Classes\EmailNotification();
-        $subject = 'Your login PIN';
-        $body = "<p>Your 6-digit login PIN is <strong>$pin</strong>.</p><p>It expires in 5 minutes.</p>";
-
-        if (!$mailer->send($user['email'], $subject, $body)) {
-            $message = 'Failed to send PIN email.';
-        } else {
-            $_SESSION['pending_user_id'] = $user['id'];
-            header('Location: verify_email_mfa.php');
-            exit;
-        }
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 <?php endif; ?>
 
-<form method="post" action="" class="form-control p-4"
+<form method="post" action="login.php" class="form-control p-4"
       style="width:380px; box-shadow: rgba(60,64,67,0.3) 0px 1px 2px 0px,
              rgba(60,64,67,0.15) 0px 2px 6px 2px;">
 
