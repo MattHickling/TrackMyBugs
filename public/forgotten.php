@@ -1,24 +1,21 @@
 <?php
 session_start();
-require '../config/config.php';
-require '../vendor/autoload.php';
-require '../src/Classes/ForgottenLogin.php';
 
-use Src\Classes\Login;
+require __DIR__ . '/../config/config.php';
+require __DIR__ . '/../vendor/autoload.php';
+
+use Src\Classes\ForgottenLogin;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $forgotten = new ForgottenLogin($conn); 
-    $success = $forgotten->forgotten($_POST['email']);
 
-    if ($success) {
-        $_SESSION['message'] = "If the email exists, a reset link has been sent.";
-        $_SESSION['toast_class'] = "bg-success";
-    } else {
-        $_SESSION['message'] = "If the email exists, a reset link has been sent.";
-        $_SESSION['toast_class'] = "bg-success";
-    }
+    $forgotten = new ForgottenLogin($conn);
+    $forgotten->forgotten($_POST['email']);
+
+    $_SESSION['message'] = 'If the email exists, a reset link has been sent.';
+    $_SESSION['toast_class'] = 'bg-success';
 
     header('Location: forgotten.php');
-    exit();
+    exit;
 }
-require '../templates/register-form.php';
+
+require __DIR__ . '/../templates/login-form.php';
