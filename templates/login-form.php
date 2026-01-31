@@ -30,8 +30,8 @@ $toastClass = '#dc3545';
 
 <form method="post" action="login.php" class="form-control p-4"
       style="width:380px; box-shadow: rgba(60,64,67,0.3) 0px 1px 2px 0px,
-             rgba(60,64,67,0.15) 0px 2px 6px 2px;">
-
+             rgba(60,64,67,0.15) 0px 2px 6px 2px; text-align: center;">
+    <h1 class="mb-2">TrackMyBugs</h1>
     <div class="text-center mb-3">
         <h5 style="font-weight:700;">Login</h5>
     </div>
