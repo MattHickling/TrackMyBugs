@@ -5,14 +5,14 @@ if (isset($journal_details) && $journal_details):
     $createdAt = Carbon::parse($journal_details['created_at']);
     $formattedDate = $createdAt->format('M d Y');
 ?>
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 journal-page">
 
-    <div class="card shadow-sm mb-4" id="journal-details-card">
+    <div class="card journal-header shadow-sm mb-4" id="journal-details-card">
         <div class="card-header bg-light">
             <h5 class="mb-0">Journal Entry Details</h5>
         </div>
 
-        <div class="card-body">
+        <div class="card-body journal-meta">
             <div class="mb-3">
                 <h6 class="fw-bold">Entry</h6>
                 <p class="mb-0"><?= nl2br(htmlspecialchars($journal_details['entry'] ?? '')) ?></p>
@@ -61,7 +61,7 @@ if (isset($journal_details) && $journal_details):
     </div>
 <?php endif; ?>
 
-    <div class="card shadow-sm">
+    <div class="card journal-table shadow-sm">
         <div class="card-header bg-light">
             <h5 class="mb-0">All Journal Entries</h5>
         </div>
