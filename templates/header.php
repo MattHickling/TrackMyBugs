@@ -116,6 +116,15 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
               </li>
 
                 <?php endif; ?>
+                <li class="nav-item">
+                  <button
+                      type="button"
+                      class="btn btn-success btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100"
+                      data-bs-toggle="modal"
+                      data-bs-target="#addJournalModal">
+                      + Journal
+                  </button>
+                </li>
 
                 <li class="nav-item">
                     <a
@@ -123,6 +132,14 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         href="<?= APP_BASE_URL ?>/dashboard.php"
                     >
                         Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="btn btn-primary btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100 text-white"
+                        href="<?= APP_BASE_URL ?>/journal.php"
+                    >
+                        Journal
                     </a>
                 </li>
 
@@ -139,6 +156,8 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         <?php endif; ?>
                     </a>
                 </li>
+
+                
 
                 <li class="nav-item">
                     <a
@@ -249,6 +268,49 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             Close
           </button>
         </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add Journal Entry Modal -->
+<div class="modal fade" id="addJournalModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <form action="<?= APP_BASE_URL ?>/journal.php" method="post">
+          <div class="mb-2">
+              <label for="journal_entry" class="form-label">Entry</label>
+              <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  id="journal_entry"
+                  name="entry"
+                  required
+              >
+          </div>
+
+          <div class="mb-2">
+              <label for="journal_description" class="form-label">Description</label>
+              <textarea
+                  class="form-control form-control-sm"
+                  id="journal_description"
+                  name="description"
+                  rows="3"
+              ></textarea>
+          </div>
+
+          <input type="hidden" name="user_id" value="<?= (int)$_SESSION['user_id']; ?>">
+
+          <div class="text-end">
+              <button type="submit" class="btn btn-success btn-sm">Add Journal</button>
+              <button
+                  type="button"
+                  class="btn btn-secondary btn-sm px-2 py-1"
+                  data-bs-dismiss="modal"
+              >
+                  Close
+              </button>
+          </div>
       </form>
     </div>
   </div>

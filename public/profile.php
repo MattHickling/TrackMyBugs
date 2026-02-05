@@ -1,5 +1,7 @@
 <?php
 
+use Src\Classes\User;
+
 session_start();
 require_once '../config/config.php';
 require_once '../src/Classes/User.php';
