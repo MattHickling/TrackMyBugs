@@ -134,14 +134,41 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a
-                        class="btn btn-primary btn-sm d-flex align-items-center justify-content-center px-3 py-2 w-100 text-white"
-                        href="<?= APP_BASE_URL ?>/journal.php"
+                <li class="nav-item dropdown">
+                    <a 
+                        class="btn btn-primary btn-sm dropdown-toggle d-flex align-items-center justify-content-center px-3 py-2 w-100 text-white"
+                        href="#"
+                        id="entriesDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                     >
-                        Journal
+                        View
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="entriesDropdown">
+                        <li>
+                            <a class="dropdown-item" href="<?= APP_BASE_URL ?>/journal.php">
+                                Journal Entries
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= APP_BASE_URL ?>/bug.php">
+                                Bugs
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= APP_BASE_URL ?>/bug.php">
+                                Projects
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= APP_BASE_URL ?>/comment.php">
+                                Comments
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
 
                 <li class="nav-item position-relative">
                     <a

@@ -14,6 +14,6 @@ use Src\Classes\Bug;
 
 $bugRepo = new Bug($conn);
 
-$bugs = $bugRepo->getAllBugs();
+$bugs = $bugRepo->getAllBugs((int)$_SESSION['user_id']);
 
 echo json_encode(['data' => $bugs]);

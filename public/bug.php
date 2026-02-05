@@ -13,7 +13,7 @@ use Src\Classes\Bug;
 use Src\Classes\Comment; 
 use Src\Classes\Attachment;
 use Src\Services\NotificationService;
-
+$bug_details = null; 
 $bugRepo = new Bug($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -73,14 +73,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-$bug_details = null;
 if (isset($_GET['id'])) {
     $bug_id = (int)$_GET['id'];
-    $bug_details = $bugRepo->getBug($bug_id);
-// dd($bug_details);
+    $bug_details = $bugRepo->getBug($bug_id, $_SESSION['user_id']);
+    if (!$bug_details) {
+        die("Bug not found or you don’t have permission to view it.");
+    }
+
     $commentRepo = new Comment($conn);
     $comments = $commentRepo->getCommentsByBug($bug_id);
+
+    $bugs = $bugRepo->getAllBugs($_SESSION['user_id']); 
 }
+
 
 include '../templates/header.php';
 include '../templates/bug-template.php';

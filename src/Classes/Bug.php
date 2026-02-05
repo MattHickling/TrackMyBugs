@@ -64,7 +64,7 @@ class Bug
         }
     }
 
-    public function getAllBugs(int $projectId = null)
+    public function getAllBugs(int $userId, int $projectId = null): array
     {
         $sql = "SELECT
                     b.id,
@@ -81,16 +81,28 @@ class Bug
                 JOIN projects p ON p.id = b.project_id
                 LEFT JOIN users reporter ON reporter.id = b.user_id
                 LEFT JOIN users assignee ON assignee.id = b.assigned_to
-                ORDER BY b.id DESC
-            ";
+                WHERE b.user_id = ? OR b.assigned_to = ?";
 
-        return $this->conn
-            ->query($sql)
-            ->fetch_all(MYSQLI_ASSOC);
+        if ($projectId !== null) {
+            $sql .= " AND b.project_id = ?";
+        }
+
+        $sql .= " ORDER BY b.id DESC";
+
+        $stmt = $this->conn->prepare($sql);
+
+        if ($projectId !== null) {
+            $stmt->bind_param("iii", $userId, $userId, $projectId);
+        } else {
+            $stmt->bind_param("ii", $userId, $userId);
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-
-   public function getBug(int $bugId): ?array
+    public function getBug(int $bugId, int $userId): ?array
     {
         $stmt = $this->conn->prepare(
             "SELECT
@@ -108,11 +120,11 @@ class Bug
             JOIN projects p ON p.id = b.project_id
             LEFT JOIN users reporter ON reporter.id = b.user_id
             LEFT JOIN users assignee ON assignee.id = b.assigned_to
-            WHERE b.id = ?
+            WHERE b.id = ? AND (b.user_id = ? OR b.assigned_to = ?)
             LIMIT 1"
         );
 
-        $stmt->bind_param("i", $bugId);
+        $stmt->bind_param("iii", $bugId, $userId, $userId);
         $stmt->execute();
         $bug = $stmt->get_result()->fetch_assoc();
 
@@ -126,7 +138,6 @@ class Bug
             WHERE bug_id = ?
             ORDER BY uploaded_at ASC"
         );
-
         $stmt->bind_param("i", $bugId);
         $stmt->execute();
 
@@ -134,8 +145,10 @@ class Bug
             $stmt->get_result()->fetch_all(MYSQLI_ASSOC),
             'file_path'
         );
+
         return $bug;
     }
+
 
 
     public function getBugsByProject(int $projectId): array
