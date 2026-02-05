@@ -8,6 +8,7 @@ use Src\Classes\Journal;
 header('Content-Type: application/json');
 
 $journalRepo = new Journal($conn);
+$userId = (int)$_SESSION['user_id'];
 
 if (!isset($_GET['id'])) {
     echo json_encode(['success' => false]);
@@ -15,7 +16,7 @@ if (!isset($_GET['id'])) {
 }
 
 $journalId = (int)$_GET['id'];
-$journal = $journalRepo->getJournalById($journalId);
+$journal = $journalRepo->getJournalById($journalId, $userId);
 
 if (!$journal) {
     echo json_encode(['success' => false]);

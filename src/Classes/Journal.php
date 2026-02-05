@@ -14,37 +14,41 @@ class Journal
     public function create(int $user_id, string $entry, string $description): void
     {
         $stmt = $this->conn->prepare(
-            "INSERT INTO dev_journal (user_id, entry, description, created_at)
-             VALUES (?, ?, ?, NOW())"
+            "INSERT INTO dev_journal (user_id, entry, description) VALUES (?, ?, ?)"
         );
         $stmt->bind_param("iss", $user_id, $entry, $description);
         $stmt->execute();
     }
 
-    public function getJournalById(int $id): ?array
+    public function getAllJournals(int $user_id): array
     {
         $stmt = $this->conn->prepare(
-            "SELECT dj.*, CONCAT(u.first_name, ' ', u.surname) AS added_by
+            "SELECT dj.id, dj.entry, dj.description, dj.created_at, 
+                    CONCAT(u.first_name, ' ', u.surname) AS added_by
             FROM dev_journal dj
-            LEFT JOIN users u ON dj.user_id = u.id
-            WHERE dj.id = ?"
-        );
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        return $result ?: null;
-    }
-
-    public function getAllJournals(): array
-    {
-        $result = $this->conn->query(
-            "SELECT dj.*, CONCAT(u.first_name, ' ', u.surname) AS added_by
-            FROM dev_journal dj
-            LEFT JOIN users u ON dj.user_id = u.id
+            JOIN users u ON dj.user_id = u.id
+            WHERE dj.user_id = ?
             ORDER BY dj.created_at DESC"
         );
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    public function getJournalById(int $id, int $user_id): ?array
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT dj.id, dj.entry, dj.description, dj.created_at, 
+                    CONCAT(u.first_name, ' ', u.surname) AS added_by
+            FROM dev_journal dj
+            JOIN users u ON dj.user_id = u.id
+            WHERE dj.id = ? AND dj.user_id = ?"
+        );
+        $stmt->bind_param("ii", $id, $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc() ?: null;
     }
 
 }
