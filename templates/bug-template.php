@@ -5,28 +5,28 @@
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-light">
                 <h5 class="mb-0">
-                    Bug: <?= htmlspecialchars($bug_details['title']) ?>
+                    Bug: <?= htmlspecialchars($bug_details['title'] ?? '') ?>
                 </h5>
             </div>
 
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <p class="mb-1"><strong>Project:</strong> <?= htmlspecialchars($bug_details['project_name']) ?></p>
-                        <p class="mb-1"><strong>Reported by:</strong> <?= htmlspecialchars($bug_details['reported_by'] ?? 'Unknown') ?></p>
-                        <p class="mb-1"><strong>Assigned to:</strong> <?= htmlspecialchars($bug_details['assigned_to'] ?? 'Unassigned') ?></p>
+                        <p class="mb-1"><strong>Project:</strong> <?= htmlspecialchars($bug_details['project_name'] ?? '') ?></p>
+                        <p class="mb-1"><strong>Reported by:</strong> <?= htmlspecialchars($bug_details['reported_by'] ?? '') ?></p>
+                        <p class="mb-1"><strong>Assigned to:</strong> <?= htmlspecialchars($bug_details['assigned_to'] ?? '') ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p class="mb-1"><strong>Status:</strong> <?= htmlspecialchars($bug_details['status_name']) ?></p>
-                        <p class="mb-1"><strong>Priority:</strong> <?= htmlspecialchars($bug_details['priority_name']) ?></p>
-                        <p class="mb-1"><strong>Created at:</strong> <?= htmlspecialchars($bug_details['created_at']) ?></p>
+                        <p class="mb-1"><strong>Status:</strong> <?= htmlspecialchars($bug_details['status_name'] ?? '') ?></p>
+                        <p class="mb-1"><strong>Priority:</strong> <?= htmlspecialchars($bug_details['priority_name'] ?? '') ?></p>
+                        <p class="mb-1"><strong>Created at:</strong> <?= htmlspecialchars($bug_details['created_at'] ?? '') ?></p>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <h6 class="fw-bold">Description</h6>
                     <p class="mb-0">
-                        <?= nl2br(htmlspecialchars($bug_details['description'])) ?>
+                        <?= nl2br(htmlspecialchars($bug_details['description'] ?? '')) ?>
                     </p>
                 </div>
 

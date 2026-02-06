@@ -213,4 +213,6 @@ class Bug
     );
     $stmt->execute();
     }
+
+    
 }

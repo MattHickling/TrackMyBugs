@@ -136,14 +136,14 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 </li>
                 <li class="nav-item dropdown">
                     <a 
-                        class="btn btn-primary btn-sm dropdown-toggle d-flex align-items-center justify-content-center px-3 py-2 w-100 text-white"
-                        href="#"
-                        id="entriesDropdown"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                      class="btn btn-primary btn-sm dropdown-toggle d-flex align-items-center justify-content-center px-3 py-2 w-100 text-white"
+                      href="#"
+                      id="entriesDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
                     >
-                        View
+                      View
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="entriesDropdown">
                         <li>
@@ -161,11 +161,11 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                                 Projects
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a class="dropdown-item" href="<?= APP_BASE_URL ?>/comment.php">
                                 Comments
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
