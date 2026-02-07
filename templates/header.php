@@ -157,15 +157,10 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="<?= APP_BASE_URL ?>/bug.php">
+                            <a class="dropdown-item" href="<?= APP_BASE_URL ?>/project.php">
                                 Projects
                             </a>
                         </li>
-                        <!-- <li>
-                            <a class="dropdown-item" href="<?= APP_BASE_URL ?>/comment.php">
-                                Comments
-                            </a>
-                        </li> -->
                     </ul>
                 </li>
 
