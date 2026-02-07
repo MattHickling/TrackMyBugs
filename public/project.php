@@ -11,6 +11,7 @@ use Src\Classes\Bug;
 
 $project = new Project($conn);
 $project_details = null;
+$projects = []; 
 $bugRepo = new Bug($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,8 +39,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['project_id'])) {
     }
 
     $bug_details = $bugRepo->getBugsByProject($project_id);
-}
 
+} else {
+
+    if (!isset($project_id)) {
+        if (!empty($_GET['q'])) {
+            $projects = $project->searchProjects(
+                (int)$_SESSION['user_id'],
+                trim($_GET['q'])
+            );
+        } else {
+            $projects = $project->getAllProjects((int)$_SESSION['user_id']);
+        }
+
+        foreach ($projects as &$p) {
+            $p['language_name'] = $p['language_name'] ?? 'Unknown';
+            $p['bug_count']     = $p['bug_count'] ?? 0;
+            $p['created_at']    = $p['created_at'] ?? 'Unknown';
+        }
+    }
+
+}
 
 include '../templates/header.php';
 include '../templates/project-template.php';
