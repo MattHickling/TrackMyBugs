@@ -15,7 +15,6 @@ class Bug
     }
 
     public function create(int $projectId, string $title, string $description, int $priority, ?string $bugUrl, int $userId, int $assignedTo ): void
-
     {
         $stmt = $this->conn->prepare(
             "INSERT INTO bugs (project_id, title, description, priority, bug_url, user_id, assigned_to)
@@ -149,8 +148,6 @@ class Bug
         return $bug;
     }
 
-
-
     public function getBugsByProject(int $projectId): array
     {
         $sql = "SELECT
@@ -190,7 +187,8 @@ class Bug
         $stmt->execute();
     }
 
-    public function updateBug(int $bugId, string $title, string $description, int $priority, ?string $bugUrl, ?int $assignedTo): void {
+    public function updateBug(int $bugId, string $title, string $description, int $priority, ?string $bugUrl, ?int $assignedTo): void 
+    {
        $stmt = $this->conn->prepare(
                 "UPDATE bugs
                 SET title = ?, 
@@ -199,20 +197,19 @@ class Bug
                     bug_url = ?, 
                     assigned_to = ?
                 WHERE id = ?"
-    );
+        );
 
-    $bugUrlValue = $bugUrl; 
-    $stmt->bind_param(
-        "ssisii",
-        $title,
-        $description,
-        $priority,
-        $bugUrlValue,
-        $assignedTo,
-        $bugId
-    );
-    $stmt->execute();
+        $bugUrlValue = $bugUrl; 
+        $stmt->bind_param(
+            "ssisii",
+            $title,
+            $description,
+            $priority,
+            $bugUrlValue,
+            $assignedTo,
+            $bugId
+        );
+        $stmt->execute();
     }
 
-    
 }
