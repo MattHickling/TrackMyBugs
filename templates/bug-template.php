@@ -72,6 +72,19 @@
     </div>
 </div>
 <?php elseif (!empty($bugs)): ?>
+
+<form method="GET" class="mb-3">
+    <div class="input-group">
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search bugs"
+            value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
 <div class="container-fluid py-3">
     <div class="alert alert-info mb-0">
        Here is all your bugs! Click on any bug to view details or edit.

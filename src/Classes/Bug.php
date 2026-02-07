@@ -212,4 +212,30 @@ class Bug
         $stmt->execute();
     }
 
+    public function searchBugs(int $userId, string $term): array
+    {
+        $like = '%' . $term . '%';
+
+        $stmt = $this->conn->prepare(
+            "SELECT
+                b.id,
+                b.title,
+                b.description,
+                b.priority AS priority_name,
+                b.status AS status_name,
+                b.bug_url,
+                b.created_at,
+                p.name AS project_name
+            FROM bugs b
+            JOIN projects p ON p.id = b.project_id
+            WHERE (b.user_id = ? OR b.assigned_to = ?)
+            AND (b.title LIKE ? OR b.description LIKE ?)
+            ORDER BY b.id DESC"
+        );
+
+        $stmt->bind_param("iiss", $userId, $userId, $like, $like);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }

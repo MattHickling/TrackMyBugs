@@ -87,16 +87,20 @@ if (isset($_GET['id'])) {
     $comments = $commentRepo->getCommentsByBug($bug_id);
 
 } else {
-    $bugs = $bugRepo->getAllBugs(
-        (int)$_SESSION['user_id']
-    );
-
+    if (!empty($_GET['q'])) {
+        $bugs = $bugRepo->searchBugs(
+            (int)$_SESSION['user_id'],
+            trim($_GET['q'])
+        );
+    } else {
+        $bugs = $bugRepo->getAllBugs(
+            (int)$_SESSION['user_id']
+        );
+    }
 }
-
-
 
 include '../templates/header.php';
 include '../templates/bug-template.php';
 if (isset($_GET['id']) && $bug_details) {
-include '../templates/comment-template.php';
+    include '../templates/comment-template.php';
 }
