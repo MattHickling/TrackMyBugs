@@ -411,5 +411,7 @@ $projects = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <?php endif; ?>
 
 <script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/datatables/js/datatables.min.js"></script>
 <script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
+
 
