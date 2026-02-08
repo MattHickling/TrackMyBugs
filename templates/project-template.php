@@ -47,24 +47,23 @@
         </div>
     </form>
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Project Name</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container-fluid py-3">
+        <div class="alert alert-info mb-0">
+            Here is all your projects! Click on any project to view details or edit.
+        </div>
+        <div class="list-group mt-3">
             <?php foreach ($projects as $project): ?>
                 <tr>
                     <td>
-                        <a href="project.php?project_id=<?= (int)$project['id'] ?>">
-                            <?= htmlspecialchars($project['name']) ?>
+                        <a href="project.php?project_id=<?= (int)$project['id'] ?>" class="list-group-item list-group-item-action">
+                            <p class="mb-1"><strong>Project Name:</strong> <?= htmlspecialchars($project['name']) ?></p>
                         </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
-        </tbody>
-    </table>
+        </div>
+    </div>
+  
 
 <?php else: ?>
     <p>Project not found.</p>
