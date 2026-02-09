@@ -1,5 +1,5 @@
 <?php if ($project_details): ?>
-    <div class="project-page ml-3">
+    <div class="project-page ml-6">
         <div class="project-header">
             <h1>Project: <?= htmlspecialchars($project_details['name']) ?></h1>
         </div>

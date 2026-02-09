@@ -54,6 +54,19 @@ table.dataTable tbody tr:hover {
     color: #6c757d;
 }
 
+/* Shift project-meta slightly to the right on project details page */
+.project-page .project-meta {
+    padding-left: 2rem;  /* use padding instead of margin */
+    display: inline-block; /* keep width content-based */
+}
+
+/* Optional: neat spacing for each line */
+.project-page .project-meta p {
+    margin-bottom: 0.5rem;
+}
+
+
+
 .project-details {
     background: #ffffff;
     padding: 1.25rem;
