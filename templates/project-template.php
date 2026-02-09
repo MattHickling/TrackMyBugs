@@ -47,24 +47,39 @@
         </div>
     </form>
 
-    <div class="container-fluid py-3">
-        <div class="alert alert-info mb-0">
-            Here is all your projects! Click on any project to view details or edit.
-        </div>
-        <div class="list-group mt-3">
+    <div class="container-fluid py-3 project-list">
+    <div class="alert alert-info mb-0 project-list-info">
+        Here is all your projects! Click on any project to view details or edit.
+    </div>
+
+        <div class="list-group mt-3 project-list-group">
             <?php foreach ($projects as $project): ?>
-                <tr>
-                    <td>
-                        <a href="project.php?project_id=<?= (int)$project['id'] ?>" class="list-group-item list-group-item-action">
-                            <p class="mb-1"><strong>Project Name:</strong> <?= htmlspecialchars($project['name']) ?></p>
-                        </a>
-                    </td>
-                </tr>
+                <a href="project.php?project_id=<?= (int) $project['id'] ?>"
+                class="list-group-item list-group-item-action project-list-item">
+
+                    <strong class="project-title">
+                        <?= htmlspecialchars($project['name']) ?>
+                    </strong>
+
+                    <div class="project-meta-row">
+                        <span>Description:</span>
+                        <?= htmlspecialchars($project['description'] ?? '') ?>
+                    </div>
+
+                    <div class="project-meta-row">
+                        <span>Created:</span>
+                        <?= htmlspecialchars($project['created_at'] ?? '') ?>
+                    </div>
+
+                    <div class="project-meta-row">
+                        <span>Bugs:</span>
+                        <?= (int) ($project['bug_count'] ?? 0) ?>
+                    </div>
+
+                </a>
             <?php endforeach; ?>
         </div>
     </div>
-  
-
 <?php else: ?>
     <p>Project not found.</p>
 <?php endif; ?>

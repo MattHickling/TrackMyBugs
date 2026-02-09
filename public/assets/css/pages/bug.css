@@ -47,3 +47,45 @@
 .bug-meta a:hover {
     text-decoration: underline;
 }
+
+.bug-list-group {
+    gap: 1rem;
+}
+
+.bug-list-item {
+    background-color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.25rem 1.5rem;
+}
+
+.bug-list-item:hover {
+    background-color: #f8f9fa;
+}
+
+.bug-title {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.5rem;
+}
+
+.bug-meta-row {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.bug-meta-row:last-child {
+    margin-bottom: 0;
+}
+
+.bug-meta-row span {
+    display: inline-block;
+    min-width: 90px;
+    font-weight: 600;
+    color: #495057;
+}
+

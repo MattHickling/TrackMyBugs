@@ -85,17 +85,43 @@
     </div>
 </form>
 
-<div class="container-fluid py-3">
-    <div class="alert alert-info mb-0">
-       Here is all your bugs! Click on any bug to view details or edit.
+<div class="container-fluid py-3 bug-list">
+    <div class="alert alert-info mb-0 bug-list-info">
+        Here are all your bugs. Click on any bug to view details or edit.
     </div>
-    <div class="list-group mt-3">
-        <?php foreach ($bugs as $bug): ?>
-            <a href="bug.php?id=<?= (int)$bug['id'] ?>" class="list-group-item list-group-item-action">
-               <p class="mb-1"><strong>Bug Title:</strong> <?= htmlspecialchars($bug['title']) ?></p>
-                <p class="mb-1"><strong>Project:</strong> <?= htmlspecialchars($bug['project_name']) ?></p>
-            </a>
-        <?php endforeach; ?>
+
+        <div class="list-group mt-3 bug-list-group">
+            <?php foreach ($bugs as $bug): ?>
+                <a href="bug.php?bug_id=<?= (int) $bug['id'] ?>"
+                class="list-group-item list-group-item-action bug-list-item">
+
+                    <strong class="bug-title">
+                        <?= htmlspecialchars($bug['title']) ?>
+                    </strong>
+
+                    <div class="bug-meta-row">
+                        <span>Project:</span>
+                        <?= htmlspecialchars($bug['project_name'] ?? 'Unknown') ?>
+                    </div>
+
+                    <div class="bug-meta-row">
+                        <span>Priority:</span>
+                        <?= htmlspecialchars($bug['priority'] ?? 'Normal') ?>
+                    </div>
+
+                    <div class="bug-meta-row">
+                        <span>Status:</span>
+                        <?= htmlspecialchars($bug['status'] ?? 'Open') ?>
+                    </div>
+
+                    <div class="bug-meta-row">
+                        <span>Created:</span>
+                        <?= htmlspecialchars($bug['created_at'] ?? '') ?>
+                    </div>
+
+                </a>
+            <?php endforeach; ?>
+        </div>
     </div>
 <?php else: ?>
 <div class="container-fluid py-3">

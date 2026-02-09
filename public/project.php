@@ -41,22 +41,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['project_id'])) {
     $bug_details = $bugRepo->getBugsByProject($project_id);
 
 } else {
-
     if (!isset($project_id)) {
-        if (!empty($_GET['q'])) {
+        if (isset($_GET['q']) && trim($_GET['q']) !== '') {
             $projects = $project->searchProjects(
                 (int)$_SESSION['user_id'],
                 trim($_GET['q'])
             );
         } else {
             $projects = $project->getAllProjects((int)$_SESSION['user_id']);
+            // dd($projects);
+            // dd(__FILE__);
+
         }
 
-        foreach ($projects as &$p) {
-            $p['language_name'] = $p['language_name'] ?? 'Unknown';
-            $p['bug_count']     = $p['bug_count'] ?? 0;
-            $p['created_at']    = $p['created_at'] ?? 'Unknown';
-        }
+        // foreach ($projects as &$p) {
+        //     // dd($p);
+        //     $p['language_name'] = $p['language_name'] ?? 'Unknown';
+        //     $p['bug_count']     = $p['bug_count'] ?? 0;
+        //     $p['created_at']    = $p['created_at'] ?? 'Unknown';
+        // }
     }
 
 }

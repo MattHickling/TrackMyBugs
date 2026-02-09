@@ -59,5 +59,31 @@ class Project
         return $result->fetch_assoc() ?: null;
     }
 
+    public function searchProjects(int $userId, string $query): array
+    {
+        $sql = "SELECT
+                    p.id,
+                    p.name,
+                    p.description,
+                    p.language,
+                    p.created_at,
+                    COUNT(b.id) AS bug_count
+                FROM projects p
+                LEFT JOIN bugs b ON b.project_id = p.id
+                WHERE p.user_id = ?
+                AND p.name LIKE ?
+                GROUP BY p.id, p.name, p.description, p.language, p.created_at
+                ORDER BY p.id DESC
+            ";
+
+        $stmt = $this->conn->prepare($sql);
+        $like = '%' . $query . '%';
+        $stmt->bind_param('is', $userId, $like);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+
 
 }
