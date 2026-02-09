@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $bug = null;
 if (isset($_GET['id'])) {
-    $bug = $bugRepo->getBug((int)$_GET['id']);
+     $bug = $bugRepo->getBug((int)$_GET['id'], (int)$_SESSION['user_id']);
 }
 
 include '../templates/header.php';

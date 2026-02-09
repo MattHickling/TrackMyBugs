@@ -1,7 +1,7 @@
 <?php 
 $bug = null;
 if (isset($_GET['id'])) {
-    $bug = $bugRepo->getBug((int)$_GET['id']);
+    $bug = $bugRepo->getBug((int)$_GET['id'], (int)$_SESSION['user_id']);
 }
 
 $users = $conn->query("SELECT id, first_name, surname FROM users ORDER BY first_name ASC")->fetch_all(MYSQLI_ASSOC);
@@ -87,3 +87,6 @@ if ($bug): ?>
     </div>
 </div>
 <?php endif; ?>
+<!-- <script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/datatables/js/datatables.min.js"></script> -->

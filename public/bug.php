@@ -76,16 +76,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $bugs = [];
 $bug_details = null;
 
-if (isset($_GET['id'])) {
-    $bug_id = (int)$_GET['id'];
+if (isset($_GET['bug_id'])) {
+    $bug_id = (int) $_GET['bug_id'];
 
     $bug_details = $bugRepo->getBug($bug_id, $_SESSION['user_id']);
     if (!$bug_details) {
         die("Bug not found or you don’t have permission to view it.");
     }
+
     $commentRepo = new Comment($conn);
     $comments = $commentRepo->getCommentsByBug($bug_id);
-
 } else {
     if (!empty($_GET['q'])) {
         $bugs = $bugRepo->searchBugs(
@@ -101,6 +101,11 @@ if (isset($_GET['id'])) {
 
 include '../templates/header.php';
 include '../templates/bug-template.php';
-if (isset($_GET['id']) && $bug_details) {
+if (isset($_GET['bug_id']) && $bug_details) {
     include '../templates/comment-template.php';
 }
+?>
+
+<script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/datatables/js/datatables.min.js"></script>

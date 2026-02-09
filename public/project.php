@@ -66,3 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['project_id'])) {
 
 include '../templates/header.php';
 include '../templates/project-template.php';
+
+?>
+<script src="<?= APP_BASE_URL ?>/assets/js/jquery-3.6.0.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?= APP_BASE_URL ?>/assets/datatables/js/datatables.min.js"></script>
