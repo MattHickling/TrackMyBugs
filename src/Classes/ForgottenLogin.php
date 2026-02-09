@@ -27,13 +27,15 @@ class ForgottenLogin
 
         $user = $result->fetch_assoc();
         $token = bin2hex(random_bytes(32));
+        $expires = date('Y-m-d H:i:s', time() + 3600); 
 
-        $stmt = $this->conn->prepare("UPDATE users SET reset_token = ?, reset_expires = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = ?");
-        $stmt->bind_param("si", $token, $user['id']);
+        $stmt = $this->conn->prepare("INSERT INTO password_resets (email, token, expires_at) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $email, $token, $expires);
         $stmt->execute();
 
         return $this->sendResetEmail($email, $token);
     }
+
 
     private function sendResetEmail($email, $token)
     {

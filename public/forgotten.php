@@ -7,7 +7,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Src\Classes\ForgottenLogin;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+// dd($_POST);
     $forgotten = new ForgottenLogin($conn);
     $forgotten->forgotten($_POST['email']);
 

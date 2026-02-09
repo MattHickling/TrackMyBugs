@@ -23,8 +23,8 @@ $email = $row['email'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $hashed = password_hash($password, PASSWORD_BCRYPT);
-
-    $update = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
+    
+    $update = $conn->prepare("UPDATE users SET password_hash = ? WHERE email = ?");
     $update->bind_param("ss", $hashed, $email);
     $update->execute();
 
