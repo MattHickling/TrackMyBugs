@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $delete->bind_param("s", $email);
     $delete->execute();
 
-    echo "Password reset successfully";
+    include '../templates/reset-success.php';
     exit;
 }
 ?>
